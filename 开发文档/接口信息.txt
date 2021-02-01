@@ -1,0 +1,37 @@
+
+功能          地址                      参数                                   参数解释                                                                    返回值
+
+注册          /register                 (username,password)
+登录          /login                    (username,password)
+
+文件夹创建   /makeDir                   (srcFoldername,destFolderId)           srcFoldername：创建的文件夹名,      destFolderId：目标文件夹Id              true/false
+文件夹移动   /moveFolder                (srcFolderId,destFolderId)             srcFolderId：  原文件夹Id,          destFolderId：目标文件夹Id              true/false
+文件夹复制   /copyFolder                (srcFolderId,destFolderId)             srcFolderId：  原文件夹Id,          destFolderId：目标文件夹Id              true/false 
+文件夹删除   /deleteFolder              (srcFolderId)                          srcFolderId：  原文件夹Id                                                   true/false
+
+
+
+文件上传     /uploadFile                (srcFilename,destFolderId)             srcFilename：  原文件名,            destFolderId：目标文件夹Id              true/false
+文件移动     /moveFile                  (srcFileId,destFolderId)               srcFileId：    原文件Id,            destFolderId：目标文件夹Id              true/false
+文件复制     /copyFile                  (srcFileId,destFolderId)               srcFileId：    原文件Id,            destFolderId：目标文件夹Id              true/false
+文件删除     /deleteFile                (srcFileId)                            srcFileId：    原文件Id                                                     true/false
+文件下载     /downloadFile              (srcFileId)                            srcFileId:     原文件Id                                                     true/false
+
+
+
+文件列表     /getFoldersAndFiles        (userId,destFoderId)     userId: 用户Id，   destFoderId: 目标文件夹Id(请求主目录时不传值即可)    
+             返回值：List<Map<String,String>>folders[],files[](map中保持文件(夹)Id，文件(夹)name，文件(夹）创建时间，文件大小)
+
+																		 
+文件搜索     /getFolderOrFilesByName    (userId,targetName)      userId: 用户Id，   targetName： 需要查找的文件名                        
+             返回值：List<Map<String,String>>folders[],files[](map中保持文件(夹)Id，文件(夹)name，文件(夹）创建时间，文件大小)
+
+
+多选批量删除 /deleteFoldersAndFiles     (srcFolderIds,srcFileIds)              srcFolderIds: 文件夹Id链表,  srcFileIds：文件Id链表                         true/false
+全部删除     /deleteAll                 (userId)                               userId：用户Id                                                              true/false
+
+
+
+
+
+
