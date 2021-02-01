@@ -6,6 +6,7 @@ class Login {
   constructor() {
     extendObservable(this, { ...OBSERVABLE });
   }
+  
   @action.bound update(data) {
     Object.assign(this, data);
   }
