@@ -1,8 +1,6 @@
 package com.lightning.portal.controller;
 
-import com.lightning.portal.bean.User;
 import com.lightning.portal.service.UserService;
-import com.lightning.portal.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

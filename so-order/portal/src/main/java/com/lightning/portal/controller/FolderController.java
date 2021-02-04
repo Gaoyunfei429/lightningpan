@@ -3,7 +3,6 @@ package com.lightning.portal.controller;
 import com.lightning.portal.service.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +17,17 @@ public class FolderController {
     @Autowired
     FolderService folderService;
 
+    /**
+     * 修改文件名
+     * @param srcFolderId
+     * @param newName
+     * @return
+     */
+    @GetMapping("/reFolderName")
+    public String reName(@RequestParam("srcFolderId") int srcFolderId, @RequestParam("newName") String newName) {
+        return folderService.reName(srcFolderId, newName);
+
+    }
     /**
      * 创建文件夹
      *

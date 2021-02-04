@@ -3,8 +3,10 @@ spring:
     active: dev
   datasource:
     username: root
-    password: lightning123.
-    url: jdbc:mysql://42.193.103.37:3306/lightning
+#    password: lightning123.
+    password: root
+#    url: jdbc:mysql://42.193.103.37:3306/lightning
+    url: jdbc:mysql://127.0.0.1:3306/lightning?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     druid:
       aop-patterns: com.lightning.portal.* #监控SpringBean

@@ -3,7 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lightning.portal.mapper.FolderMapper">
+    <update id="updateNameById">
+        UPDATE folder SET folderName=#{newName} WHERE folderId = #{srcFolderId};
+    </update>
     <select id="selectFolderIdByUserId" resultType="int">
         SELECT folderId FROM folder WHERE userId = #{userId} AND parentId = -1;
+    </select>
+    <select id="selectIdsByParentId" resultType="java.lang.Integer">
+        SELECT folderId FROM folder WHERE parentId = #{parentId};
+    </select>
+    <select id="selectByUserIdAndName" resultType="com.lightning.portal.bean.Folder">
+        SELECT * FROM folder WHERE userId = #{userId} AND folderName LIKE #{folderName};
     </select>
 </mapper>

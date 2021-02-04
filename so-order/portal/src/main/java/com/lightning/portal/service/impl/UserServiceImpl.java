@@ -1,7 +1,5 @@
 package com.lightning.portal.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lightning.portal.bean.User;
 import com.lightning.portal.mapper.UserMapper;
 import com.lightning.portal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

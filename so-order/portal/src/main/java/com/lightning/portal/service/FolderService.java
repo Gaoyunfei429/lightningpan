@@ -14,4 +14,6 @@ public interface FolderService {
     String copyFolder(int srcFolderId, int destFolderId);
 
     String deleteFolder(int srcFolderId);
+
+    String reName(int srcFolderId, String newName);
 }

@@ -14,4 +14,7 @@ public interface FileService {
     String copyFile(int srcFileId, int destFolderId);
 
     String deleteFile(int srcFileId);
+    String getPath(int srcFileId);
+
+    String reName(int srcFileId, String newName);
 }

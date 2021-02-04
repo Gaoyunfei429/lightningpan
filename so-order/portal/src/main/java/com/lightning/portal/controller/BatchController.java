@@ -1,6 +1,6 @@
 package com.lightning.portal.controller;
 
-import com.lightning.portal.bean.File;
+import com.lightning.portal.bean.Myfile;
 import com.lightning.portal.bean.Folder;
 import com.lightning.portal.service.BatchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +20,6 @@ import java.util.List;
 public class BatchController {
     @Autowired
     BatchService batchService;
-//
-//    文件列表     /getFoldersAndFiles        (userId,destFoderId)     userId: 用户Id，   destFoderId: 目标文件夹Id(请求主目录时不传值即可)
-//    返回值：List<Map<String,String>>folders[],files[](map中保持文件(夹)Id，文件(夹)name，文件(夹）创建时间，文件大小)
-//
-//
-//    文件搜索     /getFoldersOrFilesByName    (userId,targetName)      userId: 用户Id，   targetName： 需要查找的文件名
-//    返回值：List<Map<String,String>>folders[],files[](map中保持文件(夹)Id，文件(夹)name，文件(夹）创建时间，文件大小)
-//
-//
-//    多选批量删除 /deleteFoldersAndFiles     (srcFolderIds,srcFileIds)              srcFolderIds: 文件夹Id链表,  srcFileIds：文件Id链表                         true/false
-//    全部删除     /deleteAll                 (userId)                               userId：用户Id                                                              true/false
 
     /**
      * 文件列表
@@ -41,12 +30,17 @@ public class BatchController {
      */
     @GetMapping("/getFoldersAndFiles")
     public String getFoldersAndFiles(@RequestParam("userId") int userId, @RequestParam(value = "destFolderId", required = true, defaultValue = "-1") int destFolderId) {
-        if (destFolderId == -1) {
-            destFolderId = batchService.getRealFolderId(userId);
+        try {
+            if (destFolderId == -1) {
+                destFolderId = batchService.getRealFolderId(userId);
+            }
+            List<Folder> folders = batchService.getFoldersById(destFolderId);
+            List<Myfile> files = batchService.getFilesById(destFolderId);
+            return folders + files.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "false";
         }
-        List<Folder> folders = batchService.getFoldersById(destFolderId);
-        List<File> files = batchService.getFilesById(destFolderId);
-        return "";
     }
 
     /**
@@ -58,6 +52,13 @@ public class BatchController {
      */
     @GetMapping("/getFoldersOrFilesByName")
     public String getFilesByName(@RequestParam("userId") int userId, @RequestParam("targetName") String targetName) {
-        return "";
+        try {
+            List<Folder> folders = batchService.getFoldersByUserIdAndName(userId,targetName);
+            List<Myfile> files = batchService.getFilesByUserIdAndName(userId,targetName);
+            return folders + files.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "false";
+        }
     }
 }

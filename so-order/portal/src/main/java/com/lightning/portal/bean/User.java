@@ -1,18 +1,20 @@
 package com.lightning.portal.bean;
 
-import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-/**
- * @Author gyf
- * @Date 2021-01-31 20:49
- * @ClassName User
- * @Description
- */
 @Data
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
-    @TableId
-    private int userId;
-    private String username;
-    private String password;
+
+  private long userId;
+  private String userName;
+
+  public User(String userName) {
+    this.userName = userName;
+  }
 }
