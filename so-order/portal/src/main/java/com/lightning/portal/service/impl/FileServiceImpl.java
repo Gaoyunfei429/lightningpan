@@ -7,10 +7,8 @@ import com.lightning.portal.mapper.FolderMapper;
 import com.lightning.portal.service.FileService;
 import lombok.extern.java.Log;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
