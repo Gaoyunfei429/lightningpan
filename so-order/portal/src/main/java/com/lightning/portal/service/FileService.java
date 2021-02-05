@@ -1,6 +1,7 @@
 package com.lightning.portal.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Author gyf
@@ -17,4 +18,6 @@ public interface FileService {
     String getPath(int srcFileId);
 
     String reName(int srcFileId, String newName);
+
+    String uploadFile(int destFolderId, MultipartFile[] mpfs);
 }

@@ -198,15 +198,20 @@ public class FolderServiceImpl implements FolderService {
     }
 
     /**
-     * 创建文件夹与update表
+     * update folder表
      *
      * @param srcFolderName 创建文件夹名
      * @param destFolderId  parentId
      */
     public String mkDir(String srcFolderName, int destFolderId) {
-        Folder folder = folderMapper.selectById(destFolderId);
-        Folder newFolder = new Folder(srcFolderName, new Date(System.currentTimeMillis()), destFolderId, folder.getUserId());
-        folderMapper.insert(newFolder);
-        return "true";
+        try {
+            Folder folder = folderMapper.selectById(destFolderId);
+            Folder newFolder = new Folder(srcFolderName, new Date(System.currentTimeMillis()), destFolderId, folder.getUserId());
+            folderMapper.insert(newFolder);
+            return "true";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "false";
+        }
     }
 }

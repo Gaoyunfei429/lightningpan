@@ -1,14 +1,20 @@
 package com.lightning.portal.service.impl;
 
+import com.lightning.portal.bean.Folder;
 import com.lightning.portal.bean.Myfile;
 import com.lightning.portal.mapper.FileMapper;
+import com.lightning.portal.mapper.FolderMapper;
 import com.lightning.portal.service.FileService;
+import lombok.extern.java.Log;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,10 +24,13 @@ import java.util.List;
  * @ClassName FileServiceImpl
  * @Description
  */
+@Log
 @Service
 public class FileServiceImpl implements FileService {
     @Autowired
     FileMapper fileMapper;
+    @Autowired
+    FolderMapper folderMapper;
     @Autowired
     FolderServiceImpl folderService;
 
@@ -84,6 +93,28 @@ public class FileServiceImpl implements FileService {
         }
     }
 
+    @Override
+    public String uploadFile(int destFolderId, MultipartFile[] mpfs) {
+        String path = folderService.getPath(destFolderId);
+        if (!"".equals(path)) {
+            File file = null;
+            try {
+                for (MultipartFile mpf : mpfs) {
+                    file = new File(path + "\\" + mpf.getOriginalFilename());
+                    if (!file.exists()) {
+                        mpf.transferTo(file);
+                        mkFile(mpf.getOriginalFilename(), mpf.getSize(), destFolderId);
+                    }
+                }
+                return "true";
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "false";
+            }
+        }
+        return "false";
+    }
+
     /**
      * 复制文件
      *
@@ -142,5 +173,11 @@ public class FileServiceImpl implements FileService {
             }
         }
         return "false";
+    }
+
+    public void mkFile(String srcFileName, double fileSize, int destFolderId) {
+        Folder folder = folderMapper.selectById(destFolderId);
+        Myfile newFile = new Myfile(srcFileName, fileSize, new Date(System.currentTimeMillis()), destFolderId, folder.getUserId());
+        fileMapper.insert(newFile);
     }
 }
