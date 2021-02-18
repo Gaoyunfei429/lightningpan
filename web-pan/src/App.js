@@ -5,12 +5,14 @@ import 'antd/dist/antd.css';
 import "./App.css";
 
 import Login from "./Pages/Login/index";
+import Home from "./Pages/Home/index";
 
 function App() {
   return (
       <Router>
         <div className="App">
           <Route exact path="/" component={Login} />
+          <Route path="/home" component={Home} />
         </div>
       </Router>
   );
