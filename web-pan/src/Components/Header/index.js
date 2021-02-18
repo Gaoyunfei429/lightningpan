@@ -16,7 +16,7 @@ export default (props) => {
         </div>
       ) : (
         <div className="login_state_box">
-          <span className="state_text">登录</span>
+          <span className="state_text">123登录</span>
           <span>|</span>
           <span className="state_text">注册</span>
         </div>
