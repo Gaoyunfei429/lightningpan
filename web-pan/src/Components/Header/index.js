@@ -2,10 +2,25 @@ import React from "react";
 
 import "./index.scss";
 
-export default () => {
+// eslint-disable-next-line import/no-anonymous-default-export
+export default (props) => {
+  const { isLogin, userName } = props;
   return (
     <div className="body">
       <img className="logo" src="assets/OIP.jpg" />
+      {isLogin ? (
+        <div className="login_state_box">
+          <span className="state_text">{userName}</span>
+          <span>|</span>
+          <span className="state_text">退出</span>
+        </div>
+      ) : (
+        <div className="login_state_box">
+          <span className="state_text">登录</span>
+          <span>|</span>
+          <span className="state_text">注册</span>
+        </div>
+      )}
     </div>
   );
 };

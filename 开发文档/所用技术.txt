@@ -1,5 +1,5 @@
 框架：
-	前端：react
+	前端：react mobx antd
 	后端：springboot spring springmvc mybatis
 数据库：mysql、redis、elasticsearch
 消息中间件：rabbitmq

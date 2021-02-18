@@ -1,8 +1,8 @@
 .body {
     width: 100%;
     height: 100px;
-    background-color: red;
     position: relative;
+    background-color: #FFFFFF;
 
     .logo {
         height: 80px;
@@ -11,4 +11,19 @@
         top: 10px;
         left: 10px;
     }
+
+    .login_state_box {
+        height: 100px;
+        position: absolute;
+        top: 0;
+        right: 120px;
+        text-align: center;
+        line-height: 100px;
+
+        .state_text {
+            padding: 0 8px;
+        }
+
+    }
+
 }
