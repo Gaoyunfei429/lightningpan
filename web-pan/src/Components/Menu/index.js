@@ -6,11 +6,10 @@ import "./index.scss";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
-
   return (
     <div className="menu">
       <Menu
-        style={{ height: "560px" }}
+        style={{ height: "540px" }}
         defaultSelectedKeys={["1"]}
         mode="inline"
       >

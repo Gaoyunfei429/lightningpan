@@ -3,15 +3,34 @@
     $background: #ffffff !global;
     background-color: $background;
   }
+  .ant-layout-sider-trigger {
+    position: absolute;
+    top: 581px
+  }
   .content_layout {
     margin: 0 24px;
     .ant-layout-header {
-        background-color: rgb(199, 197, 197);
+      background-color: rgb(199, 197, 197);
+      padding: 0 24px;
     }
     .ant-layout-content {
-        $content: yellowgreen !global;
-        background-color: $content;
+      $content: yellowgreen !global;
+      background-color: $content;
     }
+    .features_btn {
+      .header_button {
+        width: 90px;
+        height: 36px;
+        margin-left: 12px;
+      }
+      .header_button_new {
+        width: 120px;
+        height: 36px;
+        margin-left: 12px;
+      }
+      :first-child {
+        margin-left: 0;
+      }
+    }
+  }
 }
-}
-
