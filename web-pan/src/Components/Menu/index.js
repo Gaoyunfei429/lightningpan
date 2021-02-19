@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React from "react";
 
 import { Menu } from "antd";
 
@@ -6,19 +6,13 @@ import "./index.scss";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
-  const [isInlineCollapsed, setIsInlineCollapsed] = useState(false)
-
-  const putAwayOrUnfold = () => {
-    setIsInlineCollapsed(!isInlineCollapsed)
-  }
 
   return (
     <div className="menu">
       <Menu
-        style={{ height: "600px" }}
+        style={{ height: "560px" }}
         defaultSelectedKeys={["1"]}
         mode="inline"
-        // inlineCollapsed={isInlineCollapsed}
       >
         <Menu.Item
           key="1"
@@ -33,11 +27,6 @@ export default () => {
           <span className="menu_text">我的朋友</span>
         </Menu.Item>
       </Menu>
-      {/* {
-         isInlineCollapsed ? 
-         <img className="menu_unorput" src="assets/unfold.svg"  /> :
-         <img className="menu_unorput" src="assets/putaway.svg" onClick={putAwayOrUnfold} />
-      } */}
     </div>
   );
 };

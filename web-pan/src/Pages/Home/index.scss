@@ -1,0 +1,17 @@
+.menu_layout {
+  .ant-layout-sider {
+    $background: #ffffff !global;
+    background-color: $background;
+  }
+  .content_layout {
+    margin: 0 24px;
+    .ant-layout-header {
+        background-color: rgb(199, 197, 197);
+    }
+    .ant-layout-content {
+        $content: yellowgreen !global;
+        background-color: $content;
+    }
+}
+}
+
