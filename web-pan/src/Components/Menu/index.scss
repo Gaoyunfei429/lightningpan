@@ -1,0 +1,22 @@
+.menu {
+    width: 230px;
+    position: relative;
+    .menu_icon {
+        width: 18px;
+        height: 18px;
+    }
+    .menu_text {
+        position: absolute;
+        top: 2px;
+    }
+
+    .menu_unorput{
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        left: 28px;
+        top: 524px;
+        color: #cdcdcd;
+        cursor: pointer;
+    }
+}

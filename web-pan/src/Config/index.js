@@ -18,12 +18,11 @@ function request(url, options) {
     .then((res) => {
       const response = res || {};
       const { status } = response;
-      if (status === 200) { // http请求没问题
+      if (status === 200) {
         const { data, code } = response.data;
-        if (code === 200) { // 如果接口请求没问题直接返回data，有问题则将错误信息全部返回
+        if (code === 200) {
           return data;
         }
-        // 登录超时， 跳登录
         if (code === 101) {
           history.push(PATHS.LOGIN);
         }
@@ -33,12 +32,11 @@ function request(url, options) {
       return Promise.reject(new Error(res.msg));
     })
     .catch((err) => {
-      if (!err.code) { // 如网络原因错误，打印信息
+      if (!err.code) {
         // console.error(err.message);
       }
       return Promise.reject(err);
     });
 }
 
-// module.exports = request;
 export default request;

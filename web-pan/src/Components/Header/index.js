@@ -6,7 +6,7 @@ import "./index.scss";
 export default (props) => {
   const { isLogin, userName } = props;
   return (
-    <div className="body">
+    <div className="header">
       <img className="logo" src="assets/OIP.jpg" />
       {isLogin ? (
         <div className="login_state_box">

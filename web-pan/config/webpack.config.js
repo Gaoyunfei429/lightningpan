@@ -1,4 +1,4 @@
-'use strict';
+
 
 const fs = require('fs');
 const path = require('path');
@@ -357,6 +357,10 @@ module.exports = function (webpackEnv) {
     module: {
       strictExportPresence: true,
       rules: [
+        {
+          test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+          loader: "file-loader?name=assets/[name].[ext]"
+        },
         // Disable require.ensure as it's not a standard language feature.
         { parser: { requireEnsure: false } },
         {
