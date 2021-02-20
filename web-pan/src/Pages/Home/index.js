@@ -10,7 +10,9 @@ import List from "./List"
 import "./index.scss";
 
 export default inject("home")(
-  observer(({ home: { loginState, name, getFileList } }) => {
+  observer(({ 
+    home: { loginState, name, getFileList }, 
+  }) => {
     const [collapsed, setCollapsed] = useState(false);
     const [hasSelect, setHasSelect] = useState(false);
     const { Header, Content, Sider } = Layout;

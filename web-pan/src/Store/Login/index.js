@@ -1,6 +1,8 @@
 import { action, extendObservable } from "mobx";
 
-const OBSERVABLE = {};
+const OBSERVABLE = {
+  a:'123'
+};
 
 class Login {
   constructor() {
