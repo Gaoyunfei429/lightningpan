@@ -37,8 +37,7 @@ public class FolderController {
      */
     @GetMapping("/makeDir")
     public String makeDir(@RequestParam("srcFolderName") String srcFolderName, @RequestParam("destFolderId") int destFolderId) {
-        String result = folderService.makeDir(srcFolderName, destFolderId);
-        return result;
+        return FileController.myResult(folderService.makeDir(srcFolderName, destFolderId));
     }
 
     /**
@@ -50,8 +49,7 @@ public class FolderController {
      */
     @GetMapping("/moveFolder")
     public String moveFolder(@RequestParam("srcFolderId") int srcFolderId, @RequestParam("destFolderId") int destFolderId) {
-        String result = folderService.moveFolder(srcFolderId, destFolderId);
-        return result;
+        return FileController.myResult(folderService.moveFolder(srcFolderId, destFolderId));
     }
 
     /**
@@ -63,8 +61,7 @@ public class FolderController {
      */
     @GetMapping("/copyFolder")
     public String copyFolder(@RequestParam("srcFolderId") int srcFolderId, @RequestParam("destFolderId") int destFolderId) {
-        String result = folderService.copyFolder(srcFolderId, destFolderId);
-        return result;
+        return FileController.myResult(folderService.copyFolder(srcFolderId, destFolderId));
     }
 
     /**
@@ -75,7 +72,6 @@ public class FolderController {
      */
     @GetMapping("/deleteFolder")
     public String deleteFolder(@RequestParam("srcFolderId") int srcFolderId) {
-        String result = folderService.deleteFolder(srcFolderId);
-        return result;
+        return FileController.myResult(folderService.deleteFolder(srcFolderId));
     }
 }

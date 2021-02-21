@@ -34,7 +34,7 @@ public class FolderServiceImpl implements FolderService {
         String result = "false";
         String path = getPath(destFolderId);
         if (!"".equals(path)) {
-            File file = new File(path + "\\" + srcFolderName);
+            File file = new File(path + "/" + srcFolderName);
             if (!file.exists()) {
                 file.mkdir();
                 result = mkDir(srcFolderName, destFolderId);
@@ -144,7 +144,7 @@ public class FolderServiceImpl implements FolderService {
             String path = getPath(srcFolderId);
             File file = new File(path);
             String parent = file.getParent();
-            File newFile = new File(parent + "\\" + newName);
+            File newFile = new File(parent + "/" + newName);
             if (!newFile.exists()) {
                 file.renameTo(newFile);
                 folderMapper.updateNameById(srcFolderId, newName);
@@ -188,10 +188,10 @@ public class FolderServiceImpl implements FolderService {
         if (folder != null) {
             StringBuilder path = new StringBuilder();
             while (folder.getParentId() != -1) {
-                path.insert(0, "\\" + folder.getFolderName());
+                path.insert(0, "/" + folder.getFolderName());
                 folder = folderMapper.selectById(folder.getParentId());
             }
-            path.insert(0, PathUtils.BASEPATH + "\\" + folder.getFolderName());
+            path.insert(0, PathUtils.BASEPATH + "/" + folder.getFolderName());
             return path.toString();
         }
         return "";

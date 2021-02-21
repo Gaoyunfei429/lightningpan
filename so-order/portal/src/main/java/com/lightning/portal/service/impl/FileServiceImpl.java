@@ -66,7 +66,7 @@ public class FileServiceImpl implements FileService {
         Myfile file = fileMapper.selectById(srcFileId);
         if (file != null) {
             StringBuilder path = new StringBuilder();
-            path.insert(0, folderService.getPath(file.getFolderId()) + "\\" + file.getFileName());
+            path.insert(0, folderService.getPath(file.getFolderId()) + "/" + file.getFileName());
             return path.toString();
         }
         return "";
@@ -78,7 +78,7 @@ public class FileServiceImpl implements FileService {
             String path = getPath(srcFileId);
             File file = new File(path);
             String parent = file.getParent();
-            File newFile = new File(parent + "\\" + newName);
+            File newFile = new File(parent + "/" + newName);
             if (!newFile.exists()) {
                 file.renameTo(newFile);
                 fileMapper.updateNameById(srcFileId, newName);
@@ -98,7 +98,7 @@ public class FileServiceImpl implements FileService {
             File file = null;
             try {
                 for (MultipartFile mpf : mpfs) {
-                    file = new File(path + "\\" + mpf.getOriginalFilename());
+                    file = new File(path + "/" + mpf.getOriginalFilename());
                     if (!file.exists()) {
                         mpf.transferTo(file);
                         mkFile(mpf.getOriginalFilename(), mpf.getSize(), destFolderId);
