@@ -17,6 +17,7 @@ spring:
         login-username: admin
         login-password: lightning123.
         reset-enable: false
+        allow:
 
       web-stat-filter: #监控web
         enabled: true
