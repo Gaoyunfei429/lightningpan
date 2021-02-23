@@ -7,11 +7,12 @@ import Head from "../../Components/Header";
 import Menu from "../../Components/Menu";
 
 import List from "./List"
+import UploadModal from "./UploadModal"
 import "./index.scss";
 
 export default inject("home")(
   observer(({ 
-    home: { loginState, name, getFileList }, 
+    home: { loginState, name, getFileList, isModalVisible, update }, 
   }) => {
     const [collapsed, setCollapsed] = useState(false);
     const [hasSelect, setHasSelect] = useState(false);
@@ -24,6 +25,10 @@ export default inject("home")(
     const onCollapse = () => {
       setCollapsed(!collapsed);
     };
+
+    const showModal = () => {
+      update({isModalVisible: !isModalVisible})
+    }
 
     return (
       <div>
@@ -44,7 +49,7 @@ export default inject("home")(
                 </div>
               ) : (
                 <div className="features_btn">
-                  <Button type="primary" className="header_button">
+                  <Button type="primary" className="header_button" onClick={showModal}>
                     上传
                   </Button>
                   <Button className="header_button_new">新建文件夹</Button>
@@ -56,6 +61,7 @@ export default inject("home")(
             </Content>
           </Layout>
         </Layout>
+        <UploadModal />
       </div>
     );
   })

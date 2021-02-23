@@ -17,6 +17,14 @@ const columns = [
     dataIndex: 'time',
     key: 'time',
   },
+  {
+    title: '',
+    dataIndex: 'operating',
+    key: 'operating',
+    render: () => (
+      <a>下载</a>
+    )
+  }
 ];
 
 // eslint-disable-next-line import/no-anonymous-default-export
