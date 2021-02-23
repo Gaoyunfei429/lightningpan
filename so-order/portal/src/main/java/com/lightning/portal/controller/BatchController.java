@@ -1,5 +1,6 @@
 package com.lightning.portal.controller;
 
+import com.google.gson.Gson;
 import com.lightning.portal.bean.Myfile;
 import com.lightning.portal.bean.Folder;
 import com.lightning.portal.service.BatchService;
@@ -8,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author gyf
@@ -29,17 +32,28 @@ public class BatchController {
      * @return true/false
      */
     @GetMapping("/getFoldersAndFiles")
-    public String getFoldersAndFiles(@RequestParam("userId") int userId, @RequestParam(value = "destFolderId", required = true, defaultValue = "-1") int destFolderId) {
+    public String getFoldersAndFiles(@RequestParam("userId") int userId, @RequestParam(value = "destFolderId", defaultValue = "-1") int destFolderId) {
+        Map<String, Object> som=new HashMap<>();;
+        Gson gson = new Gson();
         try {
+            Map<String, Object> data = new HashMap<>();
             if (destFolderId == -1) {
                 destFolderId = batchService.getRealFolderId(userId);
             }
             List<Folder> folders = batchService.getFoldersById(destFolderId);
             List<Myfile> files = batchService.getFilesById(destFolderId);
-            return folders + files.toString();
+            data.put("folders", folders);
+            data.put("files", files);
+            som.put("code", 200);
+            som.put("data", data);
+            som.put("msg", "success");
+            return gson.toJson(som);
         } catch (Exception e) {
             e.printStackTrace();
-            return "false";
+            som.put("code",500);
+            som.put("data","{}");
+            som.put("msg","error");
+            return gson.toJson(som);
         }
     }
 
@@ -52,13 +66,24 @@ public class BatchController {
      */
     @GetMapping("/getFoldersOrFilesByName")
     public String getFilesByName(@RequestParam("userId") int userId, @RequestParam("targetName") String targetName) {
+        Map<String, Object> som=new HashMap<>();;
+        Gson gson = new Gson();
         try {
-            List<Folder> folders = batchService.getFoldersByUserIdAndName(userId,targetName);
-            List<Myfile> files = batchService.getFilesByUserIdAndName(userId,targetName);
-            return folders + files.toString();
+            Map<String, Object> data = new HashMap<>();
+            List<Folder> folders = batchService.getFoldersByUserIdAndName(userId, targetName);
+            List<Myfile> files = batchService.getFilesByUserIdAndName(userId, targetName);
+            data.put("folders", folders);
+            data.put("files", files);
+            som.put("code", 200);
+            som.put("data", data);
+            som.put("msg", "success");
+            return gson.toJson(som);
         } catch (Exception e) {
             e.printStackTrace();
-            return "false";
+            som.put("code",500);
+            som.put("data","{}");
+            som.put("msg","error");
+            return gson.toJson(som);
         }
     }
 }

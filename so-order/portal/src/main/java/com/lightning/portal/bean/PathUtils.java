@@ -13,7 +13,7 @@ public class PathUtils {
     static {
         String path = System.getProperty("user.dir");
         File bFile = new File(path);
-        File file = new File(bFile.getParent() + "\\user");
+        File file = new File(bFile.getParent() + "/lightningpan/user");
         if (!file.exists()) {
             file.mkdir();
         }

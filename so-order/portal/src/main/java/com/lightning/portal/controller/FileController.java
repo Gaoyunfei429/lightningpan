@@ -1,5 +1,6 @@
 package com.lightning.portal.controller;
 
+import com.google.gson.Gson;
 import com.lightning.portal.service.FileService;
 import com.lightning.portal.service.impl.FolderServiceImpl;
 import org.apache.commons.io.IOUtils;
@@ -11,6 +12,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author gyf
@@ -27,27 +30,26 @@ public class FileController {
 
     /**
      * 修改文件名
+     *
      * @param srcFileId
      * @param newName
      * @return
      */
     @GetMapping("/reFileName")
     public String reName(@RequestParam("srcFileId") int srcFileId, @RequestParam("newName") String newName) {
-        return fileService.reName(srcFileId, newName);
-
+        return myResult(fileService.reName(srcFileId, newName));
     }
 
     /**
      * 文件上传
      *
-     * @param mpfs  文件
+     * @param mpfs         文件
      * @param destFolderId 目标文件夹Id
      * @return true/false
      */
     @PostMapping("/uploadFile")
     public String uploadFile(@RequestParam("destFolderId") int destFolderId, @RequestPart("mpfs") MultipartFile[] mpfs) {
-        String result = fileService.uploadFile(destFolderId,mpfs);
-        return result;
+        return myResult(fileService.uploadFile(destFolderId, mpfs));
     }
 
     /**
@@ -59,8 +61,7 @@ public class FileController {
      */
     @GetMapping("/moveFile")
     public String moveFile(@RequestParam("srcFileId") int srcFileId, @RequestParam("destFolderId") int destFolderId) {
-        String result = fileService.moveFile(srcFileId, destFolderId);
-        return result;
+        return myResult(fileService.moveFile(srcFileId, destFolderId));
     }
 
 
@@ -73,8 +74,7 @@ public class FileController {
      */
     @GetMapping("/copyFile")
     public String copyFile(@RequestParam("srcFileId") int srcFileId, @RequestParam("destFolderId") int destFolderId) {
-        String result = fileService.copyFile(srcFileId, destFolderId);
-        return result;
+        return myResult(fileService.copyFile(srcFileId, destFolderId));
     }
 
     /**
@@ -85,8 +85,7 @@ public class FileController {
      */
     @GetMapping("/deleteFile")
     public String deleteFile(@RequestParam("srcFileId") int srcFileId) {
-        String result = fileService.deleteFile(srcFileId);
-        return result;
+        return myResult(fileService.deleteFile(srcFileId));
     }
 
 
@@ -97,7 +96,7 @@ public class FileController {
      * @return true/false
      */
     @GetMapping("/downloadFile")
-    public String downloadFile(@RequestParam("srcFileId") int srcFileId, HttpServletRequest request,HttpServletResponse response) {
+    public String downloadFile(@RequestParam("srcFileId") int srcFileId, HttpServletRequest request, HttpServletResponse response) {
         String path = fileService.getPath(srcFileId);
         File file = new File(path);
         if (file.exists()) {
@@ -106,22 +105,22 @@ public class FileController {
             try {
                 String mimeType = request.getServletContext().getMimeType(path);
                 response.setContentType(mimeType);
-                response.setHeader("Content-Disposition","attachment;filename="+file.getName());
+                response.setHeader("Content-Disposition", "attachment;filename=" + file.getName());
                 FileInputStream fis = new FileInputStream(new File(path));
                 bis = new BufferedInputStream(fis);
                 os = response.getOutputStream();
-                IOUtils.copy(bis,os);
-                return "true";
+                IOUtils.copy(bis, os);
+                return myResult("true");
             } catch (IOException e) {
                 e.printStackTrace();
-                return "false";
+                return myResult("false");
             } finally {
                 if (os != null) {
                     try {
                         os.close();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        return "false";
+                        return myResult("false");
                     }
                 }
                 if (bis != null) {
@@ -129,12 +128,25 @@ public class FileController {
                         bis.close();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        return "false";
+                        return myResult("false");
                     }
                 }
 
             }
         }
-        return "false";
+        return myResult("false");
+    }
+    public static String myResult(String boo){
+        Map<String, String> ssm = new HashMap<>();
+        Gson gson = new Gson();
+        if ("true".equals(boo)) {
+            ssm.put("code", "200");
+            ssm.put("msg", "success");
+        } else {
+            ssm.put("code", "500");
+            ssm.put("msg", "error");
+        }
+        String s = gson.toJson(ssm);
+        return s;
     }
 }
