@@ -94,10 +94,14 @@ public class FileServiceImpl implements FileService {
     @Override
     public String uploadFile(int destFolderId, MultipartFile[] mpfs) {
         String path = folderService.getPath(destFolderId);
+        log.info("mpfs:" + mpfs.toString());
+        log.info("mpfslen:" + mpfs.length);
         if (!"".equals(path) && mpfs.length != 0) {
             try {
                 File file;
                 for (MultipartFile mpf : mpfs) {
+                    log.info("mpf"+mpf.getOriginalFilename());
+                    log.info("mpf:"+mpf.getContentType());
                     file = new File(path + "/" + mpf.getOriginalFilename());
                     if (!file.exists()) {
                         mpf.transferTo(file);
