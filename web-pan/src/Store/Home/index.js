@@ -1,4 +1,5 @@
-import { action, extendObservable } from "mobx";
+import { message } from "antd";
+import { action, extendObservable, runInAction } from "mobx";
 
 import * as api from '../../Service/Home';
 
@@ -16,8 +17,22 @@ class Home {
   }
 
   @action.bound getFileList = async (userId, destFoderId) => { // 之前没有用箭头函数的方式能获取到this，不知道为什么这次不行
-    const data = await api.getFileList({ userId, destFoderId })
-    this.fillList = this.fillList.concat(data.folders.concat(data.files))
+    try {
+      const data = await api.getFileList({ userId, destFoderId })
+      runInAction(() => {
+        this.fillList = this.fillList.concat(data.folders.concat(data.files))
+        this.fillList.forEach(item => {
+          item.key = item.fileId
+        });
+      })
+    } catch (err) {
+      message.error(err.msg)
+    }
+  }
+
+  @action.bound uploadFile = async (destFolderId, param) => {
+      const data = await api.uploadFile(destFolderId, param)
+      console.log('data', data)
   }
   
   @action.bound update = (data) => {

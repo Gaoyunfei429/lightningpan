@@ -9,3 +9,12 @@ export function getFileList(param) {
       baseURL: BASE_URL
     });
 }
+
+export function uploadFile(destFolderId, param) {
+    return request(`/uploadFile?destFolderId=${destFolderId}`, {
+      method: 'POST',
+      data: param,
+      baseURL: BASE_URL,
+      headers: { "Content-Type": "multipart/form-data" }
+    });
+}
