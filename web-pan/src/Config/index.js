@@ -4,7 +4,6 @@ import { PATHS, history } from '../Router';
 axios.defaults.withCredentials = true;
 
 function request(url, options) {
-  console.log(options)
   const method = (options.method || 'get').toLowerCase();
   const opts = {
     url,
@@ -15,9 +14,6 @@ function request(url, options) {
   const optionData = options.data || {};
   if (method === 'get') opts.params = optionData;
   else opts.data = optionData;
-
-  console.log(opts)
-
   return axios(opts)
     .then((res) => {
       const response = res || {};
