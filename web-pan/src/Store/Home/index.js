@@ -18,7 +18,7 @@ class Home {
 
   @action.bound getFileList = async (userId, destFoderId) => { // 之前没有用箭头函数的方式能获取到this，不知道为什么这次不行
     try {
-      const data = await api.getFileList({ userId, destFoderId })
+      const { data } = await api.getFileList({ userId, destFoderId })
       runInAction(() => {
         this.fillList = this.fillList.concat(data.folders.concat(data.files))
         this.fillList.forEach(item => {
@@ -32,7 +32,8 @@ class Home {
 
   @action.bound uploadFile = async (destFolderId, param) => {
       const data = await api.uploadFile(destFolderId, param)
-      console.log('data', data)
+      console.log('hah', data)
+      return data
   }
   
   @action.bound update = (data) => {

@@ -19,22 +19,11 @@ function request(url, options) {
       const response = res || {};
       const { status } = response;
       if (status === 200) {
-        const { data, code } = response.data;
-        if (code === 200) {
-          return data;
-        }
-        if (code === 101) {
-          history.push(PATHS.LOGIN);
-        }
-
-        return Promise.reject(response.data || '服务器错误');
+        return response.data
       }
       return Promise.reject(new Error(res.msg));
     })
     .catch((err) => {
-      if (!err.code) {
-        // console.error(err.message);
-      }
       return Promise.reject(err);
     });
 }

@@ -16,10 +16,21 @@ export default inject("home")(
     };
 
     const upload = async (e) => {
+      console.log('e', e)
+      e.file.status = 'done'
       let file = e.file;
       const formdata = new FormData();
       formdata.append('mpfs', file);
-      uploadFile(1, formdata)
+      const data = await uploadFile(1, formdata)
+      console.log('data', data)
+      if(data.code === 200) {
+
+      }
+    }
+
+    const change = (e) => {
+      console.log('change', e)
+      e.fileList[0].status = 'done'
     }
 
     return (
@@ -32,6 +43,8 @@ export default inject("home")(
         <Dragger
           multiple
           customRequest={upload}
+          onChange={change}
+          showUploadList={false}
         >
           <p className="ant-upload-drag-icon">
             <InboxOutlined />

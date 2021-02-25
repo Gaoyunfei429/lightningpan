@@ -24,8 +24,6 @@ const columns = [
     render: () => (
       <div>
         <span className="list_operating">下载</span>
-        {/* <span className="list_operating_parting">|</span> */}
-        {/* <span className="list_operating">删除</span> */}
       </div>
     ),
   },
