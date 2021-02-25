@@ -51,7 +51,7 @@ public class BatchController {
         } catch (Exception e) {
             e.printStackTrace();
             som.put("code",500);
-            som.put("data","{}");
+            som.put("data","false");
             som.put("msg","error");
             return gson.toJson(som);
         }
@@ -81,7 +81,7 @@ public class BatchController {
         } catch (Exception e) {
             e.printStackTrace();
             som.put("code",500);
-            som.put("data","{}");
+            som.put("data","false");
             som.put("msg","error");
             return gson.toJson(som);
         }

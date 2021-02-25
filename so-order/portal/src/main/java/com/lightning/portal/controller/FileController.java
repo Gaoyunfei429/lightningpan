@@ -3,6 +3,7 @@ package com.lightning.portal.controller;
 import com.google.gson.Gson;
 import com.lightning.portal.service.FileService;
 import com.lightning.portal.service.impl.FolderServiceImpl;
+import com.lightning.portal.util.Results;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +13,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Author gyf
@@ -37,7 +36,7 @@ public class FileController {
      */
     @GetMapping("/reFileName")
     public String reName(@RequestParam("srcFileId") int srcFileId, @RequestParam("newName") String newName) {
-        return myResult(fileService.reName(srcFileId, newName));
+        return Results.myResult(fileService.reName(srcFileId, newName));
     }
 
     /**
@@ -49,7 +48,7 @@ public class FileController {
      */
     @PostMapping("/uploadFile")
     public String uploadFile(@RequestParam("destFolderId") int destFolderId, @RequestPart("mpfs") MultipartFile[] mpfs) {
-        return myResult(fileService.uploadFile(destFolderId, mpfs));
+        return Results.myResult(fileService.uploadFile(destFolderId, mpfs));
     }
 
     /**
@@ -61,7 +60,7 @@ public class FileController {
      */
     @GetMapping("/moveFile")
     public String moveFile(@RequestParam("srcFileId") int srcFileId, @RequestParam("destFolderId") int destFolderId) {
-        return myResult(fileService.moveFile(srcFileId, destFolderId));
+        return Results.myResult(fileService.moveFile(srcFileId, destFolderId));
     }
 
 
@@ -74,7 +73,7 @@ public class FileController {
      */
     @GetMapping("/copyFile")
     public String copyFile(@RequestParam("srcFileId") int srcFileId, @RequestParam("destFolderId") int destFolderId) {
-        return myResult(fileService.copyFile(srcFileId, destFolderId));
+        return Results.myResult(fileService.copyFile(srcFileId, destFolderId));
     }
 
     /**
@@ -85,7 +84,7 @@ public class FileController {
      */
     @GetMapping("/deleteFile")
     public String deleteFile(@RequestParam("srcFileId") int srcFileId) {
-        return myResult(fileService.deleteFile(srcFileId));
+        return Results.myResult(fileService.deleteFile(srcFileId));
     }
 
 
@@ -110,17 +109,17 @@ public class FileController {
                 bis = new BufferedInputStream(fis);
                 os = response.getOutputStream();
                 IOUtils.copy(bis, os);
-                return myResult("true");
+                return Results.myResult("true");
             } catch (IOException e) {
                 e.printStackTrace();
-                return myResult("false");
+                return Results.myResult("false");
             } finally {
                 if (os != null) {
                     try {
                         os.close();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        return myResult("false");
+                        return Results.myResult("false");
                     }
                 }
                 if (bis != null) {
@@ -128,25 +127,12 @@ public class FileController {
                         bis.close();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        return myResult("false");
+                        return Results.myResult("false");
                     }
                 }
 
             }
         }
-        return myResult("false");
-    }
-    public static String myResult(String boo){
-        Map<String, String> ssm = new HashMap<>();
-        Gson gson = new Gson();
-        if ("true".equals(boo)) {
-            ssm.put("code", "200");
-            ssm.put("msg", "success");
-        } else {
-            ssm.put("code", "500");
-            ssm.put("msg", "error");
-        }
-        String s = gson.toJson(ssm);
-        return s;
+        return Results.myResult("false");
     }
 }

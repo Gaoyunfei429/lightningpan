@@ -1,6 +1,7 @@
 package com.lightning.portal.controller;
 
 import com.lightning.portal.service.FolderService;
+import com.lightning.portal.util.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,7 @@ public class FolderController {
      */
     @GetMapping("/reFolderName")
     public String reName(@RequestParam("srcFolderId") int srcFolderId, @RequestParam("newName") String newName) {
-        return folderService.reName(srcFolderId, newName);
+        return Results.myResult(folderService.reName(srcFolderId, newName));
 
     }
     /**
@@ -37,7 +38,7 @@ public class FolderController {
      */
     @GetMapping("/makeDir")
     public String makeDir(@RequestParam("srcFolderName") String srcFolderName, @RequestParam("destFolderId") int destFolderId) {
-        return FileController.myResult(folderService.makeDir(srcFolderName, destFolderId));
+        return Results.myResult(folderService.makeDir(srcFolderName, destFolderId));
     }
 
     /**
@@ -49,7 +50,7 @@ public class FolderController {
      */
     @GetMapping("/moveFolder")
     public String moveFolder(@RequestParam("srcFolderId") int srcFolderId, @RequestParam("destFolderId") int destFolderId) {
-        return FileController.myResult(folderService.moveFolder(srcFolderId, destFolderId));
+        return Results.myResult(folderService.moveFolder(srcFolderId, destFolderId));
     }
 
     /**
@@ -61,7 +62,7 @@ public class FolderController {
      */
     @GetMapping("/copyFolder")
     public String copyFolder(@RequestParam("srcFolderId") int srcFolderId, @RequestParam("destFolderId") int destFolderId) {
-        return FileController.myResult(folderService.copyFolder(srcFolderId, destFolderId));
+        return Results.myResult(folderService.copyFolder(srcFolderId, destFolderId));
     }
 
     /**
@@ -72,6 +73,6 @@ public class FolderController {
      */
     @GetMapping("/deleteFolder")
     public String deleteFolder(@RequestParam("srcFolderId") int srcFolderId) {
-        return FileController.myResult(folderService.deleteFolder(srcFolderId));
+        return Results.myResult(folderService.deleteFolder(srcFolderId));
     }
 }
