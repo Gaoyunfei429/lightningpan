@@ -32,7 +32,6 @@ class Home {
 
   @action.bound uploadFile = async (destFolderId, param) => {
       const data = await api.uploadFile(destFolderId, param)
-      console.log('hah', data)
       return data
   }
   
