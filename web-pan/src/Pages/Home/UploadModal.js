@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React,{ useState, useEffect } from "react";
 
 import { observer, inject } from "mobx-react";
 
@@ -10,36 +10,47 @@ const { Dragger } = Upload;
 // eslint-disable-next-line import/no-anonymous-default-export
 export default inject("home")(
   observer(({ home: { isModalVisible, update, uploadFile } }) => {
-    const [uploadList, setUploadList] = useState([])
+    const [uploadFileList, setUploadFileList] = useState([])
+    const [uploadFileObj, setUploadFileObj] = useState({})
+    const [uploadData, setUploadData] = useState({})
 
     const closeModal = () => {
       update({ isModalVisible: !isModalVisible });
     };
 
+    useEffect(() => {
+      console.log('effect', uploadFileList)
+      setFileStatus(uploadData, uploadFileObj)
+    },[uploadData, uploadFileObj])
+
     const upload = async (e) => {
       console.log('e', e)
       let file = e.file;
       console.log('file', file)
-      await setUploadList([{name: file.name, uid: file.uid, status: 'uploading'}])
+      setUploadFileList([...uploadFileList, {...file, status: 'uploading'}])
       const formdata = new FormData();
       formdata.append('mpfs', file);
       const data = await uploadFile(1, formdata)
+      setUploadData(data)
+      setUploadFileObj(file)
+    }
+
+    const setFileStatus = async (data, file) => {
       console.log('data', data)
+      console.log('file', file)
       if(data.code === 200) {
-        await setUploadList([{name: file.name, uid: file.uid, status: 'done'}])
-        console.log('uploadList', uploadList)
-        uploadList.forEach(item => {
-          console.log('item', item)
-          if(item.uid === file.uid) {
-            setUploadList([...uploadList, {...item, status: 'error'}])
+        console.log('item', uploadFileList)
+        uploadFileList.forEach(item => {
+          if(item.name === file.name) {
+            setUploadFileList([...uploadFileList, {...item, status: 'done'}])
           }else {
             return
           }
         })
       }else {
-        uploadList.forEach(item => {
-          if(item.uid === file.uid) {
-            setUploadList([...uploadList, {...item, status: 'error'}])
+        uploadFileList.forEach(item => {
+          if(item.name === file.name) {
+            setUploadFileList([...uploadFileList, {...item, status: 'error'}])
           }else {
             return
           }
@@ -57,7 +68,7 @@ export default inject("home")(
         <Dragger
           multiple
           customRequest={upload}
-          fileList={uploadList}
+          fileList={uploadFileList}
         >
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
