@@ -27,7 +27,7 @@ export default inject("home")(
       console.log('e', e)
       let file = e.file;
       console.log('file', file)
-      setUploadFileList([...uploadFileList, {...file, status: 'uploading'}])
+      setUploadFileList([...uploadFileList, {name: file.name, status: 'uploading'}])
       const formdata = new FormData();
       formdata.append('mpfs', file);
       const data = await uploadFile(1, formdata)
@@ -42,19 +42,24 @@ export default inject("home")(
         console.log('item', uploadFileList)
         uploadFileList.forEach(item => {
           if(item.name === file.name) {
-            setUploadFileList([...uploadFileList, {...item, status: 'done'}])
+            console.log(item)
+            item.status = 'done'
+            // setUploadFileList([...uploadFileList, {...item, status: 'done'}])
           }else {
             return
           }
         })
+        setUploadFileList([...uploadFileList])
       }else {
         uploadFileList.forEach(item => {
           if(item.name === file.name) {
-            setUploadFileList([...uploadFileList, {...item, status: 'error'}])
+            item.status = 'error'
+            // setUploadFileList([...uploadFileList, {...item, status: 'error'}])
           }else {
             return
           }
         })
+        setUploadFileList([...uploadFileList])
       }
     }
     
