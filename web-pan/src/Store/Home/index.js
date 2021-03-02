@@ -8,7 +8,10 @@ const OBSERVABLE = {
     name: 'aaa',
     fillList: [],
 
-    isModalVisible: false
+    isModalVisible: false,
+
+    selectedRowKeys: [],
+    hasSelected: false
 };
 
 class Home {
@@ -20,6 +23,7 @@ class Home {
     try {
       const { data } = await api.getFileList({ userId, destFoderId })
       runInAction(() => {
+        this.fillList = []
         this.fillList = this.fillList.concat(data.folders.concat(data.files))
         this.fillList.forEach(item => {
           item.key = item.fileId
@@ -31,10 +35,13 @@ class Home {
   }
 
   @action.bound uploadFile = async (destFolderId, param) => {
-      const data = await api.uploadFile(destFolderId, param)
-      return data
+      return await api.uploadFile(destFolderId, param)
   }
   
+  @action.bound deleteFile = async (srcFileId) => {
+    return await api.deleteFile(srcFileId)
+  }
+
   @action.bound update = (data) => {
     Object.assign(this, data);
   }

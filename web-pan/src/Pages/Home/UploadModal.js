@@ -1,6 +1,7 @@
 import React,{ useState, useEffect } from "react";
 
 import { observer, inject } from "mobx-react";
+import { toJS } from "mobx";
 
 import { Upload, Modal, message } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
@@ -9,42 +10,44 @@ const { Dragger } = Upload;
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default inject("home")(
-  observer(({ home: { isModalVisible, update, uploadFile } }) => {
+  observer(({ home: { 
+    isModalVisible, 
+    update, 
+    uploadFile,
+    getFileList,
+    fillList,
+    deleteFile
+   } }) => {
     const [uploadFileList, setUploadFileList] = useState([])
     const [uploadFileObj, setUploadFileObj] = useState({})
     const [uploadData, setUploadData] = useState({})
 
     const closeModal = () => {
+      setUploadFileList([])
       update({ isModalVisible: !isModalVisible });
     };
 
     useEffect(() => {
-      console.log('effect', uploadFileList)
       setFileStatus(uploadData, uploadFileObj)
     },[uploadData, uploadFileObj])
 
     const upload = async (e) => {
-      console.log('e', e)
       let file = e.file;
-      console.log('file', file)
       setUploadFileList([...uploadFileList, {name: file.name, status: 'uploading'}])
       const formdata = new FormData();
       formdata.append('mpfs', file);
       const data = await uploadFile(1, formdata)
-      setUploadData(data)
-      setUploadFileObj(file)
+      await setUploadData(data)
+      await setUploadFileObj(file)
     }
 
     const setFileStatus = async (data, file) => {
-      console.log('data', data)
-      console.log('file', file)
       if(data.code === 200) {
-        console.log('item', uploadFileList)
         uploadFileList.forEach(item => {
           if(item.name === file.name) {
-            console.log(item)
             item.status = 'done'
-            // setUploadFileList([...uploadFileList, {...item, status: 'done'}])
+            getFileList(1)
+            message.success('上传成功！')
           }else {
             return
           }
@@ -54,13 +57,31 @@ export default inject("home")(
         uploadFileList.forEach(item => {
           if(item.name === file.name) {
             item.status = 'error'
-            // setUploadFileList([...uploadFileList, {...item, status: 'error'}])
+            message.error('上传失败！')
           }else {
             return
           }
         })
         setUploadFileList([...uploadFileList])
       }
+    }
+
+    const deletePapers = (e) => {
+      toJS(fillList).map(item => {
+        if(item.fileName === e.name) {
+          const data = deleteFile(item.fileId)
+          if (data) {
+            getFileList(1)
+            const list = uploadFileList.filter(item => {
+              return item.name != e.name
+            })
+            setUploadFileList(list)
+            message.success('已删除！')
+          }else {
+            message.error('错误！')
+          }
+        }
+      })
     }
     
     return (
@@ -69,11 +90,13 @@ export default inject("home")(
         visible={isModalVisible}
         onCancel={closeModal}
         onOk={closeModal}
+        footer={false}
       >
         <Dragger
           multiple
           customRequest={upload}
           fileList={uploadFileList}
+          onRemove={deletePapers}
         >
           <p className="ant-upload-drag-icon">
             <InboxOutlined />

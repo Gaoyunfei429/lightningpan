@@ -18,3 +18,10 @@ export function uploadFile(destFolderId, param) {
       headers: { "Content-Type": "multipart/form-data" }
     });
 }
+
+export function deleteFile(srcFileId) {
+    return request(`/deleteFile?srcFileId=${srcFileId}`, {
+      method: 'GET',
+      baseURL: BASE_URL,
+    });
+}

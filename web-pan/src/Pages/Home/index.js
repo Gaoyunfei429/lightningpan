@@ -12,10 +12,9 @@ import "./index.scss";
 
 export default inject("home")(
   observer(({ 
-    home: { loginState, name, getFileList, isModalVisible, update }, 
+    home: { hasSelected, loginState, name, getFileList, isModalVisible, update }, 
   }) => {
     const [collapsed, setCollapsed] = useState(false);
-    const [hasSelect, setHasSelect] = useState(false);
     const { Header, Content, Sider } = Layout;
 
     useEffect(() => {
@@ -39,7 +38,7 @@ export default inject("home")(
           </Sider>
           <Layout className="content_layout">
             <Header>
-              {hasSelect ? (
+              {hasSelected ? (
                 <div className="features_btn">
                   <Button className="header_button">复制到</Button>
                   <Button className="header_button">移动到</Button>

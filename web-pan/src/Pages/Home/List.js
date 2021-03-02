@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { toJS } from "mobx";
 import { observer, inject } from "mobx-react";
@@ -31,10 +31,22 @@ const columns = [
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default inject("home")(
-  observer(({ home: { fillList } }) => {
+  observer(({ home: { fillList, selectedRowKeys, hasSelected, update } }) => {
+
     useEffect(() => {
-      console.log("a", toJS(fillList));
-    }, [fillList]);
+      console.log("a", selectedRowKeys);
+      if (selectedRowKeys.length > 0) {
+        update({hasSelected: true})
+      }else {
+        update({hasSelected: false})
+      }
+    }, [selectedRowKeys]);
+
+    const onSelectChange = (e) => {
+      console.log('selectedRowKeys changed: ', e);
+      update({selectedRowKeys: [...e]})
+    }
+
     return (
       <div>
         <Breadcrumb separator=">" className="list_bread">
@@ -46,6 +58,8 @@ export default inject("home")(
           dataSource={fillList}
           showHeader={false}
           rowSelection={{
+            // selectedRowKeys,
+            onChange: onSelectChange,
             type: "checkout",
           }}
         />
