@@ -8,11 +8,12 @@ import Menu from "../../Components/Menu";
 
 import List from "./List"
 import UploadModal from "./UploadModal"
+import CreatFolder from './CreatFolder'
 import "./index.scss";
 
 export default inject("home")(
   observer(({ 
-    home: { hasSelected, loginState, name, getFileList, isModalVisible, update }, 
+    home: { hasSelected, loginState, name, getFileList, isModalVisible, update, isCreatModalVisible }, 
   }) => {
     const [collapsed, setCollapsed] = useState(false);
     const { Header, Content, Sider } = Layout;
@@ -27,6 +28,10 @@ export default inject("home")(
 
     const showModal = () => {
       update({isModalVisible: !isModalVisible})
+    }
+
+    const creatFolder = () => {
+      update({isCreatModalVisible: !isCreatModalVisible})
     }
 
     return (
@@ -51,7 +56,7 @@ export default inject("home")(
                   <Button type="primary" className="header_button" onClick={showModal}>
                     上传
                   </Button>
-                  <Button className="header_button_new">新建文件夹</Button>
+                  <Button onClick={creatFolder} className="header_button_new">新建文件夹</Button>
                 </div>
               )}
             </Header>
@@ -61,6 +66,7 @@ export default inject("home")(
           </Layout>
         </Layout>
         <UploadModal />
+        <CreatFolder />
       </div>
     );
   })

@@ -11,7 +11,9 @@ const OBSERVABLE = {
     isModalVisible: false,
 
     selectedRowKeys: [],
-    hasSelected: false
+    hasSelected: false,
+
+    isCreatModalVisible: false
 };
 
 class Home {
@@ -40,6 +42,10 @@ class Home {
   
   @action.bound deleteFile = async (srcFileId) => {
     return await api.deleteFile(srcFileId)
+  }
+
+  @action.bound creatFolder = async (param) => {
+    return await api.creatFolder(param)
   }
 
   @action.bound update = (data) => {

@@ -4,6 +4,7 @@ import classnames from 'classnames'
 
 import './Login.scss'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
     const [select, setSelect] = useState(1)
 
@@ -23,7 +24,7 @@ export default () => {
                     select === 2 && <Input className="input" placeholder="你的昵称" />
                 }
                 <Input className="input" placeholder="手机号" />
-                <Input className="input" placeholder="密码" />
+                <Input.Password  className="input" placeholder="密码" />
                 <Button className="btn" type="primary">{select === 1 ? `登录` : `注册`}</Button>
             </div>
         </div>

@@ -25,3 +25,11 @@ export function deleteFile(srcFileId) {
       baseURL: BASE_URL,
     });
 }
+
+export function creatFolder(param) {
+  return request(`/makeDir`, {
+    method: 'GET',
+    data: param,
+    baseURL: BASE_URL
+  });
+}
