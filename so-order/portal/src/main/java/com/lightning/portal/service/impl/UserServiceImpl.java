@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @Description
  */
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
 
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService{
         User user = new User();
         user.setUserName(username);
         user.setPassword(password);
-        if(0==userMapper.insert(user)){
+        if (0 == userMapper.insert(user)) {
             return "false";
         }
         return "true";
@@ -32,15 +32,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public String login(String username, String password) {
-        User user = new User();
-        user.setUserName(username);
-        user.setPassword(password);
         QueryWrapper wrapper = new QueryWrapper();
-        wrapper.setEntity(user);
-        User newUser = userMapper.selectOne(wrapper);
-        if(null == newUser){
+        wrapper.eq("username", username);
+        User user = userMapper.selectOne(wrapper);
+        if (null == user) {
             return "false";
         }
-        return "true";
+        if (user.getPassword().equals(password)) {
+            return "true";
+        }else {
+            return "false";
+        }
     }
 }
