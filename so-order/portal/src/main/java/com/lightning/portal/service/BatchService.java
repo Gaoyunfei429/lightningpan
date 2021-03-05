@@ -24,4 +24,8 @@ public interface BatchService {
 
 
     List<Myfile> getFilesByUserIdAndName(int userId, String fileName);
+
+    String copyFilesAndFolders(List srcFileIds, List srcFolderIds, int destFolderId);
+    String moveFilesAndFolders(List srcFileIds, List srcFolderIds, int destFolderId);
+    String deleteFilesAndFolders(List srcFileIds, List srcFolderIds);
 }

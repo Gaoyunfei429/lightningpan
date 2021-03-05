@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.lightning.portal.bean.Myfile;
 import com.lightning.portal.bean.Folder;
 import com.lightning.portal.service.BatchService;
+import com.lightning.portal.util.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,4 +87,17 @@ public class BatchController {
             return gson.toJson(som);
         }
     }
+    @GetMapping("/copyFilesAndFolders")
+    public String copyFilesAndFolders(@RequestParam("srcFileIds") List srcFileIds,@RequestParam("srcFolderIds") List srcFolderIds,@RequestParam("destFolderId") int destFolderId){
+        return Results.myResult(batchService.copyFilesAndFolders(srcFileIds,srcFolderIds,destFolderId));
+    }
+    @GetMapping("/moveFilesAndFolders")
+    public String moveFilesAndFolders(@RequestParam("srcFileIds") List srcFileIds,@RequestParam("srcFolderIds") List srcFolderIds,@RequestParam("destFolderId") int destFolderId){
+        return Results.myResult(batchService.moveFilesAndFolders(srcFileIds,srcFolderIds,destFolderId));
+    }
+    @GetMapping("/deleteFilesAndFolders")
+    public String deleteFilesAndFolders(@RequestParam("srcFileIds") List srcFileIds,@RequestParam("srcFolderIds") List srcFolderIds){
+        return Results.myResult(batchService.deleteFilesAndFolders(srcFileIds,srcFolderIds));
+    }
+
 }

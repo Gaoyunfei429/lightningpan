@@ -7,4 +7,7 @@ package com.lightning.portal.service;
  * @Description
  */
 public interface UserService{
+    String register(String username, String password);
+
+    String login(String username, String password);
 }

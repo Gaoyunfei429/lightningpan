@@ -5,6 +5,7 @@ import com.lightning.portal.service.FileService;
 import com.lightning.portal.service.impl.FolderServiceImpl;
 import com.lightning.portal.util.Results;
 import org.apache.commons.io.IOUtils;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -58,6 +59,7 @@ public class FileController {
      * @param destFolderId 目标文件夹Id
      * @return true/false
      */
+    @Deprecated
     @GetMapping("/moveFile")
     public String moveFile(@RequestParam("srcFileId") int srcFileId, @RequestParam("destFolderId") int destFolderId) {
         return Results.myResult(fileService.moveFile(srcFileId, destFolderId));
@@ -71,6 +73,7 @@ public class FileController {
      * @param destFolderId 目标文件夹Id
      * @return true/false
      */
+    @Deprecated
     @GetMapping("/copyFile")
     public String copyFile(@RequestParam("srcFileId") int srcFileId, @RequestParam("destFolderId") int destFolderId) {
         return Results.myResult(fileService.copyFile(srcFileId, destFolderId));
@@ -82,6 +85,7 @@ public class FileController {
      * @param srcFileId 原文件Id
      * @return true/false
      */
+    @Deprecated
     @GetMapping("/deleteFile")
     public String deleteFile(@RequestParam("srcFileId") int srcFileId) {
         return Results.myResult(fileService.deleteFile(srcFileId));

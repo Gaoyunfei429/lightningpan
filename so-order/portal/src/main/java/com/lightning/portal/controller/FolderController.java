@@ -48,6 +48,7 @@ public class FolderController {
      * @param destFolderId 目标文件夹Id
      * @return true/false
      */
+    @Deprecated
     @GetMapping("/moveFolder")
     public String moveFolder(@RequestParam("srcFolderId") int srcFolderId, @RequestParam("destFolderId") int destFolderId) {
         return Results.myResult(folderService.moveFolder(srcFolderId, destFolderId));
@@ -60,6 +61,7 @@ public class FolderController {
      * @param destFolderId 目标文件夹Id
      * @return true/false
      */
+    @Deprecated
     @GetMapping("/copyFolder")
     public String copyFolder(@RequestParam("srcFolderId") int srcFolderId, @RequestParam("destFolderId") int destFolderId) {
         return Results.myResult(folderService.copyFolder(srcFolderId, destFolderId));
@@ -71,6 +73,7 @@ public class FolderController {
      * @param srcFolderId 原文件夹Id
      * @return true/false
      */
+    @Deprecated
     @GetMapping("/deleteFolder")
     public String deleteFolder(@RequestParam("srcFolderId") int srcFolderId) {
         return Results.myResult(folderService.deleteFolder(srcFolderId));

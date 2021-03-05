@@ -1,20 +1,16 @@
 package com.lightning.portal.bean;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 public class User {
 
   private long userId;
   private String userName;
-
-  public User(String userName) {
-    this.userName = userName;
-  }
+  private String password;
 }
