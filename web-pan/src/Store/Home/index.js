@@ -21,14 +21,15 @@ class Home {
     extendObservable(this, { ...OBSERVABLE });
   }
 
-  @action.bound getFileList = async (userId, destFoderId) => { // 之前没有用箭头函数的方式能获取到this，不知道为什么这次不行
+  @action.bound getFileList = async (userId, destFolderId) => { // 之前没有用箭头函数的方式能获取到this，不知道为什么这次不行
     try {
-      const { data } = await api.getFileList({ userId, destFoderId })
+      const { data } = await api.getFileList({ userId, destFolderId })
       runInAction(() => {
         this.fillList = []
         this.fillList = this.fillList.concat(data.folders.concat(data.files))
         this.fillList.forEach(item => {
-          item.key = item.fileId
+          item.key = item.fileId || item.folderId
+          item.name = item.fileName || item.folderName
         });
       })
     } catch (err) {

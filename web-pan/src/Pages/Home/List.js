@@ -9,8 +9,8 @@ import "./List.scss";
 const columns = [
   {
     title: "",
-    dataIndex: "fileName",
-    key: "fileName",
+    dataIndex: "name",
+    key: "name",
   },
   {
     title: "",
