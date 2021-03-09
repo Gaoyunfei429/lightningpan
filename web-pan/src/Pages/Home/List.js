@@ -11,6 +11,12 @@ const columns = [
     title: "",
     dataIndex: "name",
     key: "name",
+    render: (text, record)  => {
+      console.log(text, record);
+      return(
+        <p className="list_name">{text}</p>
+      );
+    }
   },
   {
     title: "",

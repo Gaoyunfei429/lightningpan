@@ -32,8 +32,9 @@ export default inject("home")(
       console.log(result)
       if (result.code === 200 && result.msg === 'success') {
         await getFileList(1, 1)
+        message.success('新建成功')
       }else {
-        message.error('新建失败，请重试。')
+        message.error('新建失败，请重试')
       }
       update({ isCreatModalVisible: !isCreatModalVisible });
     }
