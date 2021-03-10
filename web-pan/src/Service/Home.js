@@ -36,7 +36,7 @@ export function creatFolder(param) {
 
 export function moveFilesAndFolders(param) {
   return request(`/moveFilesAndFolders`, {
-    method: 'GET',
+    method: 'POST',
     data: param,
     baseURL: BASE_URL
   });

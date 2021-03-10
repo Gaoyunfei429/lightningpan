@@ -88,7 +88,6 @@ export default inject("home")(
         title="上传文件"
         visible={isModalVisible}
         onCancel={closeModal}
-        onOk={closeModal}
         footer={false}
       >
         <Dragger

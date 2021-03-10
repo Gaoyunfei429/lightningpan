@@ -10,7 +10,10 @@ const OBSERVABLE = {
 
     isModalVisible: false,
 
-    selectedRowKeys: [],
+    selectedRow: {
+      folderArr: [],
+      fileArr: []
+    },
     hasSelected: false,
 
     isCreatModalVisible: false,
@@ -31,8 +34,8 @@ class Home {
       runInAction(() => {
         this.fillList = []
         this.fillList = this.fillList.concat(data.folders.concat(data.files))
-        this.fillList.forEach(item => {
-          item.key = item.fileId || item.folderId
+        this.fillList.forEach((item, index) => {
+          item.key = index
           item.name = item.fileName || item.folderName
         });
         
@@ -61,6 +64,10 @@ class Home {
 
   @action.bound creatFolder = async (param) => {
     return await api.creatFolder(param)
+  }
+
+  @action.bound moveFilesAndFolders = async (param) => {
+    return await api.moveFilesAndFolders(param)
   }
 
   @action.bound update = (data) => {

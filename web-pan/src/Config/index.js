@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { PATHS, history } from '../Router';
 
 axios.defaults.withCredentials = true;
 
