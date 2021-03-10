@@ -1,46 +1,54 @@
 import React, { useState, useEffect } from "react";
 
+import { withRouter } from 'react-router-dom';
 import { toJS } from "mobx";
 import { observer, inject } from "mobx-react";
 import { Table, Breadcrumb } from "antd";
 
 import "./List.scss";
 
-const columns = [
-  {
-    title: "",
-    dataIndex: "name",
-    key: "name",
-    render: (text, record)  => {
-      console.log(text, record);
-      return(
-        <p className="list_name">{text}</p>
-      );
-    }
-  },
-  {
-    title: "",
-    dataIndex: "time",
-    key: "time",
-  },
-  {
-    title: "",
-    dataIndex: "operating",
-    key: "operating",
-    render: () => (
-      <div>
-        <span className="list_operating">下载</span>
-      </div>
-    ),
-  },
-];
+import { GetQueryString } from '../../Util'
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default inject("home")(
-  observer(({ home: { fillList, selectedRowKeys, hasSelected, update } }) => {
+export default withRouter(inject("home")(
+  observer(({ 
+    history, 
+    home: { 
+      fillList, 
+      selectedRowKeys, 
+      update,
+      getFileList
+    }}) => {
+
+    const columns = [
+      {
+        title: "",
+        dataIndex: "name",
+        key: "name",
+        render: (text, record)  => {
+          return(
+            <p className="list_name" onClick={()=>jumpToFolder(record)}>{text}</p>
+          );
+        }
+      },
+      {
+        title: "",
+        dataIndex: "time",
+        key: "time",
+      },
+      {
+        title: "",
+        dataIndex: "operating",
+        key: "operating",
+        render: () => (
+          <div>
+            <span className="list_operating">下载</span>
+          </div>
+        ),
+      },
+    ];
 
     useEffect(() => {
-      console.log("a", selectedRowKeys);
       if (selectedRowKeys.length > 0) {
         update({hasSelected: true})
       }else {
@@ -48,8 +56,22 @@ export default inject("home")(
       }
     }, [selectedRowKeys]);
 
+    const getList = () => {
+      const destFolderId = GetQueryString('destFolderId')
+      getFileList(1, destFolderId);
+    }
+
+    const jumpToFolder = (e) => {
+      if (e.fileId) {
+        console.log('这是一个文件')
+        return
+      } else {
+        history.push(`/home?destFolderId=${e.folderId}`)
+        getList()
+      }
+    }
+
     const onSelectChange = (e) => {
-      console.log('selectedRowKeys changed: ', e);
       update({selectedRowKeys: [...e]})
     }
 
@@ -71,5 +93,5 @@ export default inject("home")(
         />
       </div>
     );
-  })
+  }))
 );

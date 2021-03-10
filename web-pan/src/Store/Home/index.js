@@ -13,7 +13,11 @@ const OBSERVABLE = {
     selectedRowKeys: [],
     hasSelected: false,
 
-    isCreatModalVisible: false
+    isCreatModalVisible: false,
+
+    isTreeSelectModalVisible: false,
+    copyOrMove: false,  // false代表复制，true代表移动
+    
 };
 
 class Home {
@@ -31,9 +35,19 @@ class Home {
           item.key = item.fileId || item.folderId
           item.name = item.fileName || item.folderName
         });
+        
       })
     } catch (err) {
-      message.error(err.msg)
+      message.error(err.msg || '错误')
+    }
+  }
+
+  @action.bound getTreeSelectData = async (userId, destFolderId) => {
+    try {
+      const { data } = await api.getFileList({ userId, destFolderId })
+      return data
+    } catch (err) {
+      message.error(err.msg || '错误')
     }
   }
 

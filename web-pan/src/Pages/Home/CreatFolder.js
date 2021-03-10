@@ -21,7 +21,6 @@ export default inject("home")(
     };
 
     const onFinish = async (e) => {
-      console.log(e)
       const destFolderId = GetQueryString('destFolderId')
       const param = {
         ...e,

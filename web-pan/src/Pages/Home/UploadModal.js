@@ -2,7 +2,6 @@ import React,{ useState, useEffect } from "react";
 
 import { observer, inject } from "mobx-react";
 import { toJS } from "mobx";
-
 import { Upload, Modal, message } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 

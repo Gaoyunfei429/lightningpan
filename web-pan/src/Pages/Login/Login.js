@@ -25,7 +25,11 @@ export default () => {
                 }
                 <Input className="input" placeholder="手机号" />
                 <Input.Password  className="input" placeholder="密码" />
-                <Button className="btn" type="primary">{select === 1 ? `登录` : `注册`}</Button>
+                {
+                    select === 1 ? 
+                    <Button className="btn" type="primary">登录</Button> :
+                    <Button className="btn" type="primary">注册</Button>
+                }
             </div>
         </div>
     )

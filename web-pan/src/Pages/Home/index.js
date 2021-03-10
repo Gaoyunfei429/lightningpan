@@ -9,6 +9,10 @@ import Menu from "../../Components/Menu";
 import List from "./List"
 import UploadModal from "./UploadModal"
 import CreatFolder from './CreatFolder'
+import TreeSelectModal from './TreeSelectModal'
+
+import { GetQueryString } from '../../Util'
+
 import "./index.scss";
 
 export default inject("home")(
@@ -17,10 +21,11 @@ export default inject("home")(
   }) => {
     const [collapsed, setCollapsed] = useState(false);
     const { Header, Content, Sider } = Layout;
+    const destFolderId = GetQueryString('destFolderId')
 
     useEffect(() => {
-      getFileList(1);
-    }, []);
+      getFileList(1, destFolderId);
+    }, [destFolderId]);
 
     const onCollapse = () => {
       setCollapsed(!collapsed);
@@ -34,6 +39,10 @@ export default inject("home")(
       update({isCreatModalVisible: !isCreatModalVisible})
     }
 
+    const treeSelect = (e) => {
+      update({isTreeSelectModalVisible: true, copyOrMove: e})
+    }
+
     return (
       <div>
         <Head isLogin={loginState} userName={name} />
@@ -45,8 +54,8 @@ export default inject("home")(
             <Header>
               {hasSelected ? (
                 <div className="features_btn">
-                  <Button className="header_button">复制到</Button>
-                  <Button className="header_button">移动到</Button>
+                  <Button className="header_button" onClick={()=>treeSelect(false)}>复制到</Button>
+                  <Button className="header_button" onClick={()=>treeSelect(true)}>移动到</Button>
                   <Button type="primary" className="header_button" danger>
                     删除
                   </Button>
@@ -67,6 +76,7 @@ export default inject("home")(
         </Layout>
         <UploadModal />
         <CreatFolder />
+        <TreeSelectModal />
       </div>
     );
   })

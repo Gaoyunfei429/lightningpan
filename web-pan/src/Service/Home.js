@@ -33,3 +33,11 @@ export function creatFolder(param) {
     baseURL: BASE_URL
   });
 }
+
+export function moveFilesAndFolders(param) {
+  return request(`/moveFilesAndFolders`, {
+    method: 'GET',
+    data: param,
+    baseURL: BASE_URL
+  });
+}
