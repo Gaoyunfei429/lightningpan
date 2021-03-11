@@ -18,14 +18,16 @@ public interface BatchService {
 
     List<Folder> getFoldersById(int destFolderId);
 
-    int getRealFolderId(int userId);
+    int getRealFolderId(String userId);
 
-    List<Folder> getFoldersByUserIdAndName(int userId, String targetName);
+    List<Folder> getFoldersByUserIdAndName(String userId, String targetName);
 
 
-    List<Myfile> getFilesByUserIdAndName(int userId, String fileName);
+    List<Myfile> getFilesByUserIdAndName(String userId, String fileName);
 
     String copyFilesAndFolders(List srcFileIds, List srcFolderIds, int destFolderId);
+
     String moveFilesAndFolders(List srcFileIds, List srcFolderIds, int destFolderId);
+
     String deleteFilesAndFolders(List srcFileIds, List srcFolderIds);
 }

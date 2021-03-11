@@ -47,19 +47,19 @@ public class BatchServiceImpl implements BatchService {
     }
 
     @Override
-    public int getRealFolderId(int userId) {
+    public int getRealFolderId(String userId) {
         int id = folderMapper.selectFolderIdByUserId(userId);
         return id;
     }
 
     @Override
-    public List<Folder> getFoldersByUserIdAndName(int userId, String targetName) {
+    public List<Folder> getFoldersByUserIdAndName(String userId, String targetName) {
         List<Folder> folders = folderMapper.selectByUserIdAndName(userId,"%"+targetName+"%");
         return folders;
     }
 
     @Override
-    public List<Myfile> getFilesByUserIdAndName(int userId, String fileName) {
+    public List<Myfile> getFilesByUserIdAndName(String userId, String fileName) {
         List<Myfile> myfiles = fileMapper.selectByUserIdAndName(userId,"%"+fileName+"%");
         return myfiles;
     }
@@ -69,7 +69,7 @@ public class BatchServiceImpl implements BatchService {
         String result="false";
         if(0 != srcFileIds.size()){
             for (Object srcFileId : srcFileIds) {
-                if("false".equals(result = fileService.copyFile((int)srcFileId,destFolderId))){
+                if("false".equals(fileService.copyFile((int)srcFileId,destFolderId))){
                     return "false";
                 }
                 result = "true";
@@ -77,7 +77,7 @@ public class BatchServiceImpl implements BatchService {
         }
         if(0 != srcFolderIds.size()){
             for (Object srcFolderId : srcFolderIds) {
-                if("false".equals(result = folderService.copyFolder((int)srcFolderId,destFolderId))){
+                if("false".equals(folderService.copyFolder((int)srcFolderId,destFolderId))){
                     return "false";
                 }
                 result = "true";
@@ -91,7 +91,7 @@ public class BatchServiceImpl implements BatchService {
         String result="false";
         if(0 != srcFileIds.size()){
             for (Object srcFileId : srcFileIds) {
-                if("false".equals(result = fileService.moveFile((int)srcFileId,destFolderId))){
+                if("false".equals(fileService.moveFile((int)srcFileId,destFolderId))){
                     return "false";
                 }
                 result = "true";
@@ -99,7 +99,7 @@ public class BatchServiceImpl implements BatchService {
         }
         if(0 != srcFolderIds.size()){
             for (Object srcFolderId : srcFolderIds) {
-                if("false".equals(result = folderService.moveFolder((int)srcFolderId,destFolderId))){
+                if("false".equals(folderService.moveFolder((int)srcFolderId,destFolderId))){
                     return "false";
                 }
                 result = "true";
@@ -113,7 +113,7 @@ public class BatchServiceImpl implements BatchService {
         String result="false";
         if(0 != srcFileIds.size()){
             for (Object srcFileId : srcFileIds) {
-                if("false".equals(result = fileService.deleteFile((int)srcFileId))){
+                if("false".equals(fileService.deleteFile((int)srcFileId))){
                     return "false";
                 }
                 result = "true";
@@ -121,7 +121,7 @@ public class BatchServiceImpl implements BatchService {
         }
         if(0 != srcFolderIds.size()){
             for (Object srcFolderId : srcFolderIds) {
-                if("false".equals(result = folderService.deleteFolder((int)srcFolderId))){
+                if("false".equals(folderService.deleteFolder((int)srcFolderId))){
                     return "false";
                 }
                 result = "true";

@@ -16,11 +16,11 @@ import java.util.List;
 @Mapper
 public interface FolderMapper extends BaseMapper<Folder> {
 
-    int selectFolderIdByUserId(@Param("userId") int userId);
+    int selectFolderIdByUserId(@Param("userId") String userId);
 
     List<Integer> selectIdsByParentId(@Param("parentId") Integer parentId);
 
-    List<Folder> selectByUserIdAndName(@Param("userId") int userId, @Param("folderName") String folderName);
+    List<Folder> selectByUserIdAndName(@Param("userId") String userId, @Param("folderName") String folderName);
 
     int updateNameById(@Param("srcFolderId") int srcFolderId, @Param("newName") String newName);
 }

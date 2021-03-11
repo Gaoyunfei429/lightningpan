@@ -1,7 +1,7 @@
 package com.lightning.portal.service.impl;
 
 import com.lightning.portal.bean.Folder;
-import com.lightning.portal.bean.PathUtils;
+import com.lightning.portal.util.PathUtils;
 import com.lightning.portal.mapper.FolderMapper;
 import com.lightning.portal.service.FolderService;
 import org.apache.commons.io.FileUtils;

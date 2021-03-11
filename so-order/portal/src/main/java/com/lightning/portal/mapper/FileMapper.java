@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Mapper
 public interface FileMapper extends BaseMapper<Myfile> {
-    List<Myfile> selectByUserIdAndName(@Param("userId") int userId, @Param("fileName") String fileName);
+    List<Myfile> selectByUserIdAndName(@Param("userId") String userId, @Param("fileName") String fileName);
 
     int updateNameById(@Param("srcFildId") int srcFileId, @Param("newName") String newName);
 }

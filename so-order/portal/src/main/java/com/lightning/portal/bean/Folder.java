@@ -21,9 +21,9 @@ public class Folder {
   private String folderName;
   private Date time;
   private int parentId;
-  private int userId;
+  private String userId;
 
-  public Folder(String folderName, Date time, int parentId, int userId) {
+  public Folder(String folderName, Date time, int parentId, String userId) {
     this.folderName = folderName;
     this.time = time;
     this.parentId = parentId;

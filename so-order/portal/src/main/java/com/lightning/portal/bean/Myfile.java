@@ -21,9 +21,9 @@ public class Myfile {
     private double fileSize;
     private Date time;
     private int folderId;
-    private int userId;
+    private String userId;
 
-    public Myfile(String fileName, double fileSize, Date time, int folderId, int userId) {
+    public Myfile(String fileName, double fileSize, Date time, int folderId, String userId) {
         this.fileName = fileName;
         this.fileSize = fileSize;
         this.time = time;

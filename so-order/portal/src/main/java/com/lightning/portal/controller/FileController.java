@@ -1,11 +1,9 @@
 package com.lightning.portal.controller;
 
-import com.google.gson.Gson;
 import com.lightning.portal.service.FileService;
 import com.lightning.portal.service.impl.FolderServiceImpl;
 import com.lightning.portal.util.Results;
 import org.apache.commons.io.IOUtils;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

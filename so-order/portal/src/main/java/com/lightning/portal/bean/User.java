@@ -10,7 +10,7 @@ import lombok.*;
 @Getter
 public class User {
 
-  private long userId;
+  private String userId;
   private String userName;
   private String password;
 }

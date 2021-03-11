@@ -7,6 +7,7 @@ import com.lightning.portal.service.BatchService;
 import com.lightning.portal.util.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,8 +34,8 @@ public class BatchController {
      * @return true/false
      */
     @GetMapping("/getFoldersAndFiles")
-    public String getFoldersAndFiles(@RequestParam("userId") int userId, @RequestParam(value = "destFolderId", defaultValue = "-1") int destFolderId) {
-        Map<String, Object> som=new HashMap<>();;
+    public String getFoldersAndFiles(@RequestParam("userId") String userId, @RequestParam(value = "destFolderId", defaultValue = "-1") int destFolderId) {
+        Map<String, Object> som = new HashMap<>();
         Gson gson = new Gson();
         try {
             Map<String, Object> data = new HashMap<>();
@@ -51,9 +52,9 @@ public class BatchController {
             return gson.toJson(som);
         } catch (Exception e) {
             e.printStackTrace();
-            som.put("code",500);
-            som.put("data","false");
-            som.put("msg","error");
+            som.put("code", 500);
+            som.put("data", "false");
+            som.put("msg", "error");
             return gson.toJson(som);
         }
     }
@@ -66,8 +67,9 @@ public class BatchController {
      * @return true/false
      */
     @GetMapping("/getFoldersOrFilesByName")
-    public String getFilesByName(@RequestParam("userId") int userId, @RequestParam("targetName") String targetName) {
-        Map<String, Object> som=new HashMap<>();;
+    public String getFilesByName(@RequestParam("userId") String userId, @RequestParam("targetName") String targetName) {
+        Map<String, Object> som = new HashMap<>();
+        ;
         Gson gson = new Gson();
         try {
             Map<String, Object> data = new HashMap<>();
@@ -81,23 +83,26 @@ public class BatchController {
             return gson.toJson(som);
         } catch (Exception e) {
             e.printStackTrace();
-            som.put("code",500);
-            som.put("data","false");
-            som.put("msg","error");
+            som.put("code", 500);
+            som.put("data", "false");
+            som.put("msg", "error");
             return gson.toJson(som);
         }
     }
-    @GetMapping("/copyFilesAndFolders")
-    public String copyFilesAndFolders(@RequestParam("srcFileIds") List srcFileIds,@RequestParam("srcFolderIds") List srcFolderIds,@RequestParam("destFolderId") int destFolderId){
-        return Results.myResult(batchService.copyFilesAndFolders(srcFileIds,srcFolderIds,destFolderId));
+
+    @PostMapping("/copyFilesAndFolders")
+    public String copyFilesAndFolders(@RequestParam("srcFileIds") List srcFileIds, @RequestParam("srcFolderIds") List srcFolderIds, @RequestParam("destFolderId") int destFolderId) {
+        return Results.myResult(batchService.copyFilesAndFolders(srcFileIds, srcFolderIds, destFolderId));
     }
-    @GetMapping("/moveFilesAndFolders")
-    public String moveFilesAndFolders(@RequestParam("srcFileIds") List srcFileIds,@RequestParam("srcFolderIds") List srcFolderIds,@RequestParam("destFolderId") int destFolderId){
-        return Results.myResult(batchService.moveFilesAndFolders(srcFileIds,srcFolderIds,destFolderId));
+
+    @PostMapping("/moveFilesAndFolders")
+    public String moveFilesAndFolders(@RequestParam("srcFileIds") List srcFileIds, @RequestParam("srcFolderIds") List srcFolderIds, @RequestParam("destFolderId") int destFolderId) {
+        return Results.myResult(batchService.moveFilesAndFolders(srcFileIds, srcFolderIds, destFolderId));
     }
-    @GetMapping("/deleteFilesAndFolders")
-    public String deleteFilesAndFolders(@RequestParam("srcFileIds") List srcFileIds,@RequestParam("srcFolderIds") List srcFolderIds){
-        return Results.myResult(batchService.deleteFilesAndFolders(srcFileIds,srcFolderIds));
+
+    @PostMapping("/deleteFilesAndFolders")
+    public String deleteFilesAndFolders(@RequestParam("srcFileIds") List srcFileIds, @RequestParam("srcFolderIds") List srcFolderIds) {
+        return Results.myResult(batchService.deleteFilesAndFolders(srcFileIds, srcFolderIds));
     }
 
 }
