@@ -94,7 +94,6 @@ export default withRouter(
               });
             }
           });
-          // update({selectedRowKeys: [...e]})
         };
 
         return (

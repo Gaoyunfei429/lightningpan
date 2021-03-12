@@ -8,6 +8,7 @@
     border: 2px #09C7F7 solid;
     text-align: center;
     background: white;
+    position: relative;
     .span-btn  {
         margin: 12px auto;
         margin-bottom: 24px;
@@ -24,14 +25,12 @@
     .input {
         width: 312px;
         height: 48px;
-        // display: block;
         margin: 0 auto;
-        margin-bottom: 24px;
+        margin-bottom: 12px;
     }
     .btn {
         width: 220px;
         height: 48px;
-        margin-top: 48px;
         border: 1px #09C7F7 solid;
         background-color: #09C7F7;
     }

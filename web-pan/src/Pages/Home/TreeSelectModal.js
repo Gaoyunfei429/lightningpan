@@ -55,7 +55,7 @@ export default inject("home")(
         console.log(e);
         const data = await moveFilesAndFolders({
           srcFileIds: selectedRow.fileArr,
-          srcFolderIds: selectedRow.fileArr,
+          srcFolderIds: selectedRow.folderArr,
           destFolderId: aimsFolderId,
         });
         console.log(data)
