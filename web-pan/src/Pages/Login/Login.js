@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { withRouter } from "react-router-dom";
 
-import {toJS} from 'mobx'
+import { toJS } from 'mobx'
 import { Input, Button, Form, message } from "antd";
 import { observer, inject } from "mobx-react";
 import classnames from "classnames";
@@ -26,10 +26,9 @@ export default withRouter(
             const data = await loginFnc(e.userId, e.passWord);
             if (data.code === 200) {
               message.success(data.msg);
-              await update({ userData: data.data });
-              console.log(toJS(userData))
+              update({ userData: data.data });
               history.push(
-                `/home?destFolderId=${userData.baseFolderId}&userId=${userData.user.userId}`
+                `/home?destFolderId=${data.data.baseFolderId}&userId=${data.data.user.userId}`
               );
             } else {
               message.error(data.msg);
@@ -67,7 +66,7 @@ export default withRouter(
                   注册
                 </span>
               </div>
-              <Form form={form} onFinish={onFinish}>
+              <Form form={form} className="login-form" onFinish={onFinish}>
                 {select === 2 && (
                   <Form.Item
                     name="userName"
@@ -95,12 +94,12 @@ export default withRouter(
                     </Button>
                   </Form.Item>
                 ) : (
-                  <Form.Item name="register">
-                    <Button className="btn" type="primary" htmlType="submit">
-                      注册
+                    <Form.Item name="register">
+                      <Button className="btn" type="primary" htmlType="submit">
+                        注册
                     </Button>
-                  </Form.Item>
-                )}
+                    </Form.Item>
+                  )}
               </Form>
             </div>
           </div>
