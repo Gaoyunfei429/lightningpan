@@ -11,9 +11,11 @@ import "./Login.scss";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default withRouter(
-  inject("login")(
+  inject("login", "home")(
     observer(
-      ({ history, login: { loginFnc, registerFnc, update, userData } }) => {
+      ({ history, 
+        login: { loginFnc, registerFnc, update },
+      }) => {
         const [form] = Form.useForm();
         const [select, setSelect] = useState(1);
 
@@ -27,6 +29,7 @@ export default withRouter(
             if (data.code === 200) {
               message.success(data.msg);
               update({ userData: data.data });
+              sessionStorage.setItem('initialFolderId', data.data.baseFolderId);
               history.push(
                 `/home?destFolderId=${data.data.baseFolderId}&userId=${data.data.user.userId}`
               );

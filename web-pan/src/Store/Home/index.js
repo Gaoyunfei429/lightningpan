@@ -8,6 +8,8 @@ const OBSERVABLE = {
     name: 'aaa',
     fillList: [],
 
+    initialFolderId: '',
+
     isModalVisible: false,
 
     selectedRow: {
@@ -21,6 +23,7 @@ const OBSERVABLE = {
     isTreeSelectModalVisible: false,
     copyOrMove: false,  // false代表复制，true代表移动
     
+    isDeleteModalVisible: false,
 };
 
 class Home {
@@ -38,8 +41,8 @@ class Home {
           item.key = index
           item.name = item.fileName || item.folderName
         });
-        
       })
+      return data
     } catch (err) {
       message.error(err.msg || '错误')
     }

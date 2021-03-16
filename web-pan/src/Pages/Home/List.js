@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { Table, Breadcrumb } from "antd";
-
-import "./List.scss";
+import { Table } from "antd";
 
 import { GetQueryString } from "../../Util";
+
+import "./List.scss";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default withRouter(
@@ -60,11 +60,12 @@ export default withRouter(
         };
 
         const jumpToFolder = (e) => {
+          const userId = GetQueryString("userId");
           if (e.fileId) {
             console.log("这是一个文件");
             return;
           } else {
-            history.push(`/home?destFolderId=${e.folderId}`);
+            history.push(`/home?destFolderId=${e.folderId}&userId=${userId}`);
             getList();
           }
         };
@@ -98,9 +99,7 @@ export default withRouter(
 
         return (
           <div>
-            <Breadcrumb separator=">" className="list_bread">
-              <Breadcrumb.Item>我的文件</Breadcrumb.Item>
-            </Breadcrumb>
+            {/* <Bread /> */}
             <Table
               className="list_table"
               columns={columns}

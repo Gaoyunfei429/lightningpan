@@ -9,7 +9,7 @@
   .content_layout {
     margin: 0 24px;
     .ant-layout-header {
-      background-color: rgb(199, 197, 197);
+      background-color: rgb(212, 214, 216);
       padding: 0 24px;
     }
     .ant-layout-content {
@@ -17,6 +17,7 @@
       // background-color: $content;
     }
     .features_btn {
+      position: relative;
       .header_button {
         width: 90px;
         height: 36px;
@@ -26,6 +27,13 @@
         width: 120px;
         height: 36px;
         margin-left: 12px;
+      }
+      .header_button_back {
+        width: 90px;
+        height: 36px;
+        position: absolute;
+        right: 24px;
+        top: 12px
       }
       :first-child {
         margin-left: 0;

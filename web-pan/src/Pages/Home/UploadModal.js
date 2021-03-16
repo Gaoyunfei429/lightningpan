@@ -41,6 +41,7 @@ export default inject("home")(
     }
 
     const setFileStatus = async (data, file) => {
+      console.log(file)
       if(data.code === 200) {
         uploadFileList.forEach(item => {
           if(item.name === file.name) {
@@ -91,7 +92,6 @@ export default inject("home")(
         footer={false}
       >
         <Dragger
-          multiple
           customRequest={upload}
           fileList={uploadFileList}
           onRemove={deletePapers}
