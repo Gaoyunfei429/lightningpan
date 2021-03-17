@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
@@ -12,7 +12,7 @@ import "./List.scss";
 export default withRouter(
   inject("home")(
     observer(
-      ({ history, home: { fillList, selectedRow, update, getFileList } }) => {
+      ({ history, home: { fillList, selectedRowKeys, selectedRow, update, getFileList } }) => {
         const columns = [
           {
             title: "",
@@ -52,11 +52,12 @@ export default withRouter(
           } else {
             update({ hasSelected: false });
           }
-        }, [selectedRow]);
+        }, [selectedRow.folderArr, selectedRow.fileArr]);
 
         const getList = () => {
           const destFolderId = GetQueryString("destFolderId");
-          getFileList(1, destFolderId);
+          const userId = GetQueryString("userId");
+          getFileList(userId, destFolderId);
         };
 
         const jumpToFolder = (e) => {
@@ -72,6 +73,7 @@ export default withRouter(
 
         const onSelectChange = (key, e) => {
           // eslint-disable-next-line array-callback-return
+          update({selectedRowKeys : key})
           update({
             selectedRow: {
               folderArr: [],
@@ -99,14 +101,13 @@ export default withRouter(
 
         return (
           <div>
-            {/* <Bread /> */}
             <Table
               className="list_table"
               columns={columns}
               dataSource={fillList}
               showHeader={false}
               rowSelection={{
-                // selectedRowKeys,
+                selectedRowKeys,
                 onChange: onSelectChange,
               }}
             />

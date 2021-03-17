@@ -11,7 +11,8 @@ const OBSERVABLE = {
     initialFolderId: '',
 
     isModalVisible: false,
-
+    
+    selectedRowKeys: [],
     selectedRow: {
       folderArr: [],
       fileArr: []
