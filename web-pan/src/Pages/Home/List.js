@@ -35,13 +35,15 @@ export default withRouter(
             title: "",
             dataIndex: "operating",
             key: "operating",
-            render: () => (
-              <div>
-                <span className="list_operating">下载</span>
-              </div>
-            ),
+            render: (text, record, index) => 
+                <span className="list_operating" onClick={()=>downLoad(record)}>下载</span>
+            ,
           },
         ];
+
+        const downLoad = (e) => {
+          console.log(e)
+        };
 
         useEffect(() => {
           if (

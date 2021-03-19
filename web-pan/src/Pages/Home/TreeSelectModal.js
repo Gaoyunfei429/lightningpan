@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import { toJS } from "mobx";
 import { Modal, TreeSelect, Form, message } from "antd";
 import { observer, inject } from "mobx-react";
 
@@ -18,7 +17,6 @@ export default inject("home")(
         getTreeSelectData,
         moveFilesAndFolders,
         getFileList,
-        selectedRowKeys
       },
     }) => {
       const [form] = Form.useForm();
