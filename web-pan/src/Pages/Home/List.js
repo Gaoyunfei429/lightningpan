@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { Table } from "antd";
+import { message, Table } from "antd";
 
 import { GetQueryString } from "../../Util";
 
@@ -12,7 +12,7 @@ import "./List.scss";
 export default withRouter(
   inject("home")(
     observer(
-      ({ history, home: { fillList, selectedRowKeys, selectedRow, update, getFileList } }) => {
+      ({ history, home: { fillList, selectedRowKeys, selectedRow, update, getFileList, downLoadFile } }) => {
         const columns = [
           {
             title: "",
@@ -41,8 +41,16 @@ export default withRouter(
           },
         ];
 
-        const downLoad = (e) => {
+        const downLoad = async (e) => {
           console.log(e)
+          if (e.fileName) {
+            const data = await downLoadFile({
+              srcFileId: e.fileId
+            })
+            console.log(data)
+          }else {
+            message.error('目前仅支持下载文件')
+          }
         };
 
         useEffect(() => {

@@ -41,3 +41,11 @@ export function moveFilesAndFolders(param) {
     baseURL: BASE_URL
   });
 }
+
+export function downLoad(param) {
+  return request(`/downloadFile`, {
+    method: 'GET',
+    data: param,
+    baseURL: BASE_URL
+  });
+}

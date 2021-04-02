@@ -74,6 +74,10 @@ class Home {
     return await api.moveFilesAndFolders(param)
   }
 
+  @action.bound downLoadFile = async (param) => {
+    return await api.downLoad(param)
+  }
+
   @action.bound update = (data) => {
     Object.assign(this, data);
   }
