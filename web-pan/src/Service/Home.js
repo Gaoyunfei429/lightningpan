@@ -42,6 +42,14 @@ export function moveFilesAndFolders(param) {
   });
 }
 
+export function copyFilesAndFolders(param) {
+  return request(`/copyFilesAndFolders`, {
+    method: 'POST',
+    data: param,
+    baseURL: BASE_URL
+  });
+}
+
 export function downLoad(param) {
   return request(`/downloadFile`, {
     method: 'GET',

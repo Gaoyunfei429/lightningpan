@@ -16,6 +16,7 @@ export default inject("home")(
         selectedRow,
         getTreeSelectData,
         moveFilesAndFolders,
+        copyFilesAndFolders,
         getFileList,
       },
     }) => {
@@ -60,6 +61,7 @@ export default inject("home")(
         const destFolderId = GetQueryString("destFolderId");
         const userId = GetQueryString("userId");
         update({selectedRowKeys: null})
+        copyOrMove ? 
         moveFilesAndFolders({
           srcFileIds: selectedRow.fileArr,
           srcFolderIds: selectedRow.folderArr,
@@ -67,7 +69,7 @@ export default inject("home")(
         }).then(res=>{
           if (res.code === 200) {
             getFileList(userId, destFolderId).then(res=>{
-              message.success(`${copyOrMove ? `移动` : `复制`}成功`)
+              message.success('移动成功')
               update({
                 selectedRow: {
                   folderArr: [],
@@ -77,7 +79,43 @@ export default inject("home")(
               closeModal()
             })
           }else {
-            message.error(`${copyOrMove ? `移动` : `复制`}失败`)
+            message.error('移动失败')
+            update({
+              selectedRow: {
+                folderArr: [],
+                fileArr: []
+              }
+            })
+            closeModal()
+          }
+        }).catch(err => {
+          message.error('服务器出错啦~')
+        }):
+        copyFilesAndFolders({
+          srcFileIds: selectedRow.fileArr,
+          srcFolderIds: selectedRow.folderArr,
+          destFolderId: aimsFolderId,
+        }).then(res=>{
+          if (res.code === 200) {
+            getFileList(userId, destFolderId).then(res=>{
+              message.success('复制成功')
+              update({
+                selectedRow: {
+                  folderArr: [],
+                  fileArr: []
+                }
+              })
+              closeModal()
+            })
+          }else {
+            message.error('复制失败')
+            update({
+              selectedRow: {
+                folderArr: [],
+                fileArr: []
+              }
+            })
+            closeModal()
           }
         }).catch(err => {
           message.error('服务器出错啦~')

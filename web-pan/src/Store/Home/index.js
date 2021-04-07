@@ -74,6 +74,10 @@ class Home {
     return await api.moveFilesAndFolders(param)
   }
 
+  @action.bound copyFilesAndFolders = async (param) => {
+    return await api.copyFilesAndFolders(param)
+  }
+
   @action.bound downLoadFile = async (param) => {
     return await api.downLoad(param)
   }
