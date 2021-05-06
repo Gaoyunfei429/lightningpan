@@ -19,9 +19,10 @@ export function uploadFile(destFolderId, param) {
     });
 }
 
-export function deleteFile(srcFileId) {
-    return request(`/deleteFile?srcFileId=${srcFileId}`, {
-      method: 'GET',
+export function deleteFilesAndFolders(param) {
+    return request(`/deleteFilesAndFolders`, {
+      method: 'POST',
+      data: param,
       baseURL: BASE_URL,
     });
 }
@@ -45,14 +46,6 @@ export function moveFilesAndFolders(param) {
 export function copyFilesAndFolders(param) {
   return request(`/copyFilesAndFolders`, {
     method: 'POST',
-    data: param,
-    baseURL: BASE_URL
-  });
-}
-
-export function downLoad(param) {
-  return request(`/downloadFile`, {
-    method: 'GET',
     data: param,
     baseURL: BASE_URL
   });

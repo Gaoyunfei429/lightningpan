@@ -20,9 +20,10 @@ import "./index.scss";
 export default withRouter(inject("home")(
   observer(({
     history,
-    home: { initialFolderId, hasSelected, loginState, name, getFileList, isModalVisible, update, isCreatModalVisible }, 
+    home: { hasSelected, loginState, getFileList, isModalVisible, update, isCreatModalVisible }, 
   }) => {
     const [collapsed, setCollapsed] = useState(false);
+    const [userName] = useState(sessionStorage.getItem('userName'))
     const [isChild, setIsChild] = useState(false)
     const { Header, Content, Sider } = Layout;
     const destFolderId = GetQueryString('destFolderId')
@@ -66,9 +67,14 @@ export default withRouter(inject("home")(
       history.goBack()
     }
 
+    const exit = () => {
+      console.log('退出登录');
+      history.push('/')
+    }
+
     return (
       <div>
-        <Head isLogin={loginState} userName={name} />
+        <Head isLogin={loginState} userName={userName} exit={exit} />
         <Layout className="menu_layout">
           <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
             <Menu />

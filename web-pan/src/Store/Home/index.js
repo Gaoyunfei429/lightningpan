@@ -5,7 +5,6 @@ import * as api from '../../Service/Home';
 
 const OBSERVABLE = {
     loginState: true,
-    name: 'aaa',
     fillList: [],
 
     initialFolderId: '',
@@ -62,8 +61,8 @@ class Home {
       return await api.uploadFile(destFolderId, param)
   }
   
-  @action.bound deleteFile = async (srcFileId) => {
-    return await api.deleteFile(srcFileId)
+  @action.bound deleteFilesAndFolders = async (param) => {
+    return await api.deleteFilesAndFolders(param)
   }
 
   @action.bound creatFolder = async (param) => {
@@ -76,10 +75,6 @@ class Home {
 
   @action.bound copyFilesAndFolders = async (param) => {
     return await api.copyFilesAndFolders(param)
-  }
-
-  @action.bound downLoadFile = async (param) => {
-    return await api.downLoad(param)
   }
 
   @action.bound update = (data) => {

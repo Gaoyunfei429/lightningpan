@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import { withRouter } from "react-router-dom";
 
-import { toJS } from 'mobx'
 import { Input, Button, Form, message } from "antd";
 import { observer, inject } from "mobx-react";
 import classnames from "classnames";
@@ -29,7 +28,9 @@ export default withRouter(
             if (data.code === 200) {
               message.success(data.msg);
               update({ userData: data.data });
+              console.log(data.data)
               sessionStorage.setItem('initialFolderId', data.data.baseFolderId);
+              sessionStorage.setItem('userName', data.data.user.userName)
               history.push(
                 `/home?destFolderId=${data.data.baseFolderId}&userId=${data.data.user.userId}`
               );
@@ -39,7 +40,7 @@ export default withRouter(
           } else {
             const data = await registerFnc(e.userId, e.userName, e.passWord);
             if (data.code === 500) {
-              message.error("改手机号已被注册");
+              message.error("改账户已被注册");
               return;
             } else {
               message.success("注册成功，请登录");

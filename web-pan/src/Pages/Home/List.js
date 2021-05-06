@@ -12,7 +12,7 @@ import "./List.scss";
 export default withRouter(
   inject("home")(
     observer(
-      ({ history, home: { fillList, selectedRowKeys, selectedRow, update, getFileList, downLoadFile } }) => {
+      ({ history, home: { fillList, selectedRowKeys, selectedRow, update, getFileList } }) => {
         const columns = [
           {
             title: "",
@@ -42,12 +42,8 @@ export default withRouter(
         ];
 
         const downLoad = async (e) => {
-          console.log(e)
           if (e.fileName) {
-            const data = await downLoadFile({
-              srcFileId: e.fileId
-            })
-            console.log(data)
+            window.open(`http://42.193.103.37:8080/downloadFile?srcFileId=${e.fileId}`)
           }else {
             message.error('目前仅支持下载文件')
           }

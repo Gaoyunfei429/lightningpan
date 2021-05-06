@@ -41,7 +41,6 @@ export default inject("home")(
     }
 
     const setFileStatus = async (data, file) => {
-      console.log(file)
       if(data.code === 200) {
         uploadFileList.forEach(item => {
           if(item.name === file.name) {
