@@ -5,11 +5,13 @@ import * as api from '../../Service/Home';
 
 const OBSERVABLE = {
     loginState: true,
-    name: 'aaa',
     fillList: [],
 
-    isModalVisible: false,
+    initialFolderId: '',
 
+    isModalVisible: false,
+    
+    selectedRowKeys: [],
     selectedRow: {
       folderArr: [],
       fileArr: []
@@ -21,6 +23,7 @@ const OBSERVABLE = {
     isTreeSelectModalVisible: false,
     copyOrMove: false,  // false代表复制，true代表移动
     
+    isDeleteModalVisible: false,
 };
 
 class Home {
@@ -38,8 +41,8 @@ class Home {
           item.key = index
           item.name = item.fileName || item.folderName
         });
-        
       })
+      return data
     } catch (err) {
       message.error(err.msg || '错误')
     }
@@ -58,8 +61,8 @@ class Home {
       return await api.uploadFile(destFolderId, param)
   }
   
-  @action.bound deleteFile = async (srcFileId) => {
-    return await api.deleteFile(srcFileId)
+  @action.bound deleteFilesAndFolders = async (param) => {
+    return await api.deleteFilesAndFolders(param)
   }
 
   @action.bound creatFolder = async (param) => {
@@ -68,6 +71,10 @@ class Home {
 
   @action.bound moveFilesAndFolders = async (param) => {
     return await api.moveFilesAndFolders(param)
+  }
+
+  @action.bound copyFilesAndFolders = async (param) => {
+    return await api.copyFilesAndFolders(param)
   }
 
   @action.bound update = (data) => {

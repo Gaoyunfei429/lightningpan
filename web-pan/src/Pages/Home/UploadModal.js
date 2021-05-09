@@ -91,7 +91,6 @@ export default inject("home")(
         footer={false}
       >
         <Dragger
-          multiple
           customRequest={upload}
           fileList={uploadFileList}
           onRemove={deletePapers}

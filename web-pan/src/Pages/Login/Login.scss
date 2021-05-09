@@ -1,38 +1,40 @@
 .login {
     padding-top: 40px;
-}
-.content {
-    margin: 0 auto;
-    width: 380px;
-    height: 428px;
-    border: 2px #09C7F7 solid;
-    text-align: center;
-    background: white;
-    .span-btn  {
-        margin: 12px auto;
-        margin-bottom: 24px;
-        font-size: 24px;
-        cursor: pointer;
-        .selected {
-            color: #09C7F7;
-        }
-        .point {
-            display: inline-block;
-            margin: 0 12px;
-        }
-    }
-    .input {
-        width: 312px;
-        height: 48px;
-        // display: block;
+    .content {
         margin: 0 auto;
-        margin-bottom: 24px;
-    }
-    .btn {
-        width: 220px;
-        height: 48px;
-        margin-top: 48px;
-        border: 1px #09C7F7 solid;
-        background-color: #09C7F7;
+        width: 380px;
+        // height: 428px;
+        border: 1px rgba(7, 176, 218, 0.288) solid;
+        text-align: center;
+        background: white;
+        position: relative;
+        .span-btn  {
+            margin: 12px auto;
+            margin-bottom: 24px;
+            font-size: 24px;
+            cursor: pointer;
+            .selected {
+                color: #09C7F7;
+            }
+            .point {
+                display: inline-block;
+                margin: 0 12px;
+            }
+        }
+        .login-form {
+            height: 100%;
+            .input {
+                width: 312px;
+                height: 48px;
+                margin: 0 auto;
+            }
+            .btn {
+                width: 220px;
+                height: 48px;
+                border: 1px #09C7F7 solid;
+                background-color: #09C7F7;
+                margin-top: 24px
+            }
+        }
     }
 }

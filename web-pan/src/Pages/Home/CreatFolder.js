@@ -21,16 +21,15 @@ export default inject("home")(
     };
 
     const onFinish = async (e) => {
+      const userId = GetQueryString("userId");
       const destFolderId = GetQueryString('destFolderId')
       const param = {
         ...e,
         destFolderId
       }
-      console.log(param)
       const result = await creatFolder(param)
-      console.log(result)
       if (result.code === 200 && result.msg === 'success') {
-        await getFileList(1, 1)
+        await getFileList(userId, destFolderId)
         message.success('新建成功')
       }else {
         message.error('新建失败，请重试')
