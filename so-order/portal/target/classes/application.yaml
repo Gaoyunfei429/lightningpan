@@ -1,0 +1,41 @@
+spring:
+  profiles:
+    active: dev
+  datasource:
+    username: root
+    password: lightning123.
+#    password: root
+    url: jdbc:mysql://42.193.103.37:3306/lightning
+#    url: jdbc:mysql://127.0.0.1:3306/lightning?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      aop-patterns: com.lightning.portal.* #监控SpringBean
+      filters: stat,wall #底层开启功能 stat：sql监控， wall：防火墙
+
+      stat-view-servlet: #配置监控页功能
+        enabled: true
+        login-username: admin
+        login-password: lightning123.
+        reset-enable: false
+        allow:
+
+      web-stat-filter: #监控web
+        enabled: true
+        url-pattern: /*
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+
+      filter: #对上面filter stat、wall的详细配置
+        stat:
+          enabled: true
+          log-slow-sql: true
+          slow-sql-millis: 1000
+        wall:
+          enabled: true
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#debug: true
+
+
+

@@ -6,10 +6,7 @@ import com.lightning.portal.bean.Folder;
 import com.lightning.portal.service.BatchService;
 import com.lightning.portal.util.Results;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -91,17 +88,34 @@ public class BatchController {
     }
 
     @PostMapping("/copyFilesAndFolders")
-    public String copyFilesAndFolders(@RequestParam("srcFileIds") List srcFileIds, @RequestParam("srcFolderIds") List srcFolderIds, @RequestParam("destFolderId") int destFolderId) {
+    public String copyFilesAndFolders(@RequestBody Map<String,Object> map) {
+        List srcFileIds = (List)map.get("srcFileIds");
+        System.out.println("srcFileIds = " + srcFileIds);
+        List srcFolderIds = (List) map.get("srcFolderIds");
+        System.out.println("srcFolderIds = " + srcFolderIds);
+        int destFolderId = (int)map.get("destFolderId");
+        System.out.println("destFolderId = " + destFolderId);
         return Results.myResult(batchService.copyFilesAndFolders(srcFileIds, srcFolderIds, destFolderId));
     }
 
+    //@RequestParam("srcFileIds") String srcFileIds, @RequestParam("srcFolderIds") List<Integer> srcFolderIds, @RequestParam("destFolderId") int destFolderId
     @PostMapping("/moveFilesAndFolders")
-    public String moveFilesAndFolders(@RequestParam("srcFileIds") List srcFileIds, @RequestParam("srcFolderIds") List srcFolderIds, @RequestParam("destFolderId") int destFolderId) {
+    public String moveFilesAndFolders(@RequestBody Map<String,Object> map) {
+        List srcFileIds = (List)map.get("srcFileIds");
+        System.out.println("srcFileIds = " + srcFileIds);
+        List srcFolderIds = (List) map.get("srcFolderIds");
+        System.out.println("srcFolderIds = " + srcFolderIds);
+        int destFolderId = (int)map.get("destFolderId");
+        System.out.println("destFolderId = " + destFolderId);
         return Results.myResult(batchService.moveFilesAndFolders(srcFileIds, srcFolderIds, destFolderId));
     }
 
     @PostMapping("/deleteFilesAndFolders")
-    public String deleteFilesAndFolders(@RequestParam("srcFileIds") List srcFileIds, @RequestParam("srcFolderIds") List srcFolderIds) {
+    public String deleteFilesAndFolders(@RequestBody Map<String,Object> map) {
+        List srcFileIds = (List)map.get("srcFileIds");
+        System.out.println("srcFileIds = " + srcFileIds);
+        List srcFolderIds = (List) map.get("srcFolderIds");
+        System.out.println("srcFolderIds = " + srcFolderIds);
         return Results.myResult(batchService.deleteFilesAndFolders(srcFileIds, srcFolderIds));
     }
 

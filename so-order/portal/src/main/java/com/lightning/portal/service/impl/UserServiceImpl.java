@@ -31,26 +31,31 @@ public class UserServiceImpl implements UserService {
     FolderMapper folderMapper;
 
     @Override
-    public String register(String userId,String username, String password) {
+    public String register(String userId, String username, String password) {
         User user = new User();
         user.setUserId(userId);
         user.setUserName(username);
         user.setPassword(password);
-        if (0 == userMapper.insert(user)) {
+        try {
+            if(0==userMapper.insert(user)){
+                return "false";
+            }
+            File file = new File(PathUtils.BASEPATH + "/" + username);
+            if (!file.exists()) {
+                file.mkdir();
+                Folder folder = new Folder();
+                folder.setParentId(-1);
+                folder.setUserId(userId);
+                folder.setFolderName(username);
+                folder.setTime(new Date(System.currentTimeMillis()));
+                folderMapper.insert(folder);
+                return "true";
+            }
+            return "false";
+        } catch (Exception e) {
+            e.printStackTrace();
             return "false";
         }
-        File file = new File(PathUtils.BASEPATH + "/" + username);
-        if (!file.exists()) {
-            file.mkdir();
-            Folder folder = new Folder();
-            folder.setParentId(-1);
-            folder.setUserId(userId);
-            folder.setFolderName(username);
-            folder.setTime(new Date(System.currentTimeMillis()));
-            folderMapper.insert(folder);
-            return "true";
-        }
-        return "false";
     }
 
     @Override
@@ -58,12 +63,12 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> som = new HashMap<>();
         Gson gson = new Gson();
         QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq("userId",userId);
+        wrapper.eq("userId", userId);
         User user = userMapper.selectOne(wrapper);
         if (null == user) {
             som.put("code", 500);
             som.put("data", "false");
-            som.put("msg", "error");
+            som.put("msg", "用户不存在！");
         } else if (user.getPassword().equals(password)) {
             Map<String, Object> data = new HashMap<>();
             int folderId = folderMapper.selectFolderIdByUserId(user.getUserId());
@@ -71,11 +76,11 @@ public class UserServiceImpl implements UserService {
             data.put("user", user);
             som.put("code", 200);
             som.put("data", data);
-            som.put("msg", "success");
+            som.put("msg", "登录成功！");
         } else {
             som.put("code", 500);
             som.put("data", "false");
-            som.put("msg", "error");
+            som.put("msg", "用户名或密码错误！");
         }
         return gson.toJson(som);
     }

@@ -99,21 +99,23 @@ public class FileController {
     @GetMapping("/downloadFile")
     public String downloadFile(@RequestParam("srcFileId") int srcFileId, HttpServletRequest request, HttpServletResponse response) {
         String path = fileService.getPath(srcFileId);
+        System.out.println("path = " + path);
         File file = new File(path);
         if (file.exists()) {
-            BufferedInputStream bis = null;
+            FileInputStream fis =null;
             ServletOutputStream os = null;
             try {
                 String mimeType = request.getServletContext().getMimeType(path);
                 response.setContentType(mimeType);
                 response.setHeader("Content-Disposition", "attachment;filename=" + file.getName());
-                FileInputStream fis = new FileInputStream(new File(path));
-                bis = new BufferedInputStream(fis);
+                fis = new FileInputStream(new File(path));
                 os = response.getOutputStream();
-                IOUtils.copy(bis, os);
+                IOUtils.copy(fis, os);
+                System.out.println("1");
                 return Results.myResult("true");
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println("2");
                 return Results.myResult("false");
             } finally {
                 if (os != null) {
@@ -124,9 +126,9 @@ public class FileController {
                         return Results.myResult("false");
                     }
                 }
-                if (bis != null) {
+                if (fis != null) {
                     try {
-                        bis.close();
+                        fis.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                         return Results.myResult("false");
@@ -135,6 +137,7 @@ public class FileController {
 
             }
         }
+        System.out.println("3");
         return Results.myResult("false");
     }
 }
